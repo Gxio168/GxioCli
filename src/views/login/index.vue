@@ -1,19 +1,20 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm"   class="login-form" :model="userInfo" >
+    <el-form class="login-form" :model="userInfo" :rules="rules" ref="ruleFormRef">
       <div class="title-container">
         <h3 class="title">Login Form</h3>
       </div>
-
-      <el-form-item >
+      <el-form-item prop="username">
         <el-input v-model="userInfo.username" placeholder="Please input userName"></el-input>
       </el-form-item>
 
       <el-form-item prop="password">
-        <el-input :type="passwordType" v-model="userInfo.password"  show-password     placeholder="Please input password"></el-input>
+        <el-input :type="passwordType" v-model="userInfo.password" show-password placeholder="Please input password">
+        </el-input>
       </el-form-item>
 
-      <el-button type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-button type="primary" style="width:100%;margin-bottom:30px;" @click="handleLogin(ruleFormRef)">Login
+      </el-button>
 
       <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
@@ -22,45 +23,54 @@
 
     </el-form>
   </div>
-  <el-input v-model="userInfo.password"></el-input>
 </template>
 
 <script  setup lang='ts'>
 import { reactive, ref } from 'vue'
-import axios from 'axios'
+import { useAuthStore } from '@/stores/auth'
+import type { UserInfo } from '@/type/index'
+import { useRouter, useRoute } from 'vue-router'
+import { authRules } from '@/utils/validate'
+import type { FormInstance, FormRules } from 'element-plus'
 
-type User = {
-  username: string,
-  password: string
-}
-const userInfo = reactive<User>({
+const authStore = useAuthStore()
+const router = useRouter()
+const route = useRoute()
+
+// 初始化用户信息
+const userInfo = reactive<UserInfo>({
   username: '',
   password: ''
 })
+// 初始化密码框状态
+const passwordType = ref('password')
 
-const passwordType=  ref('password')
-
-const showPwd = () => {
-  passwordType.value = passwordType.value === 'password' ? 'text' : 'password'
-}
-
-const handleLogin = () => {
-  axios({
-    url: '/api/login',
-    method: 'post',
-    data: userInfo
-  }).then(res => {
-    console.log(res.data);
+// 点击登录按钮触发登录
+const handleLogin = async (formEl: FormInstance | undefined) => {
+  await (formEl as FormInstance).validate(async (valid) => {
+    if (valid) {
+      const result = await authStore.login(userInfo)
+      if (result.statusCode === 200) {
+        router.push({
+          path: route.query.redirect as string || '/main'
+        })
+      }
+    }
   })
 }
+
+// 表单元素
+const ruleFormRef = ref<FormInstance>()
+// 表单验证
+const rules = authRules
 
 </script>
 
 
 <style lang="scss" scoped>
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
 
 .login-container {
   min-height: 100%;
@@ -90,7 +100,7 @@ $light_gray:#eee;
   }
 
 
-N  .title-container {
+  N .title-container {
     position: relative;
 
     .title {
