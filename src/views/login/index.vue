@@ -52,7 +52,7 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
       const result = await authStore.login(userInfo)
       if (result.statusCode === 200) {
         router.push({
-          path: route.query.redirect as string || '/main'
+          path: route.query.redirect as string || '/'
         })
       }
     }
