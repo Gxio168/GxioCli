@@ -3,19 +3,22 @@ import type { RouteRecordRaw } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { storeToRefs } from 'pinia'
 import { getToken } from '@/utils/token'
+import layout from '@/layout/index.vue'
 
 const routes: RouteRecordRaw[] = [
-  {
-    path: '/',
-    redirect: '/login'
-  },
   {
     path: '/login',
     component: () => import('@/views/login/index.vue')
   },
   {
-    path: '/main',
-    component: () => import('@/components/main.vue')
+    path: '/',
+    component: layout,
+    redirect: '/dashboard',
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/Dashboard/index.vue')
+    }]
   },
   {
     path: '/:productName',
