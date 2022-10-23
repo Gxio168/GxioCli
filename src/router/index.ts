@@ -11,7 +11,17 @@ const routes = [
     component: () => import('@/views/login/index.vue'),
     hidden: true
   },
-
+  {
+    path: '/',
+    component: layout,
+    redirect: '/dashboard',
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/Dashboard/index.vue'),
+      meta: { title: 'Dashboard', icon: 'dashboard' }
+    }]
+  },
   {
     path: '/example',
     component: layout,
@@ -33,7 +43,6 @@ const routes = [
       }
     ]
   },
-
   {
     path: '/form',
     component: layout,
@@ -45,17 +54,6 @@ const routes = [
         meta: { title: 'Form', icon: 'form' }
       }
     ]
-  },
-  {
-    path: '/',
-    component: layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/Dashboard/index.vue'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
-    }]
   },
   {
     path: '/:productName',

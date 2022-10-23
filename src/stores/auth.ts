@@ -42,6 +42,9 @@ export const useAuthStore = defineStore('auth', {
   getters: {
     name(state) {
       return state.userInfo.name
+    },
+    avatar(state) {
+      return state.userInfo.avatar
     }
   },
 })
