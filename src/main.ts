@@ -4,8 +4,9 @@ import { createApp } from 'vue'
 import { registerIcon } from '@/global'
 import { registerStore } from './stores'
 
-import '@/style/index.scss'
 import App from './App.vue'
+import '@/style/index.scss'
+import 'element-plus/theme-chalk/el-message.css'
 
 const app = createApp(App)
 

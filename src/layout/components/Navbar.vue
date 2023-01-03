@@ -1,20 +1,18 @@
 <template>
   <div class="navbar">
-    <Hamburger  :isActive="sidebar.opened" class="hamburger-container" @toggle-click="toggleClick" />
+    <Hamburger :isActive="sidebar.opened" class="hamburger-container" @toggle-click="toggleClick" />
     <Breadcrumb />
     <!-- 右侧 -->
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
           <i class="el-icon-caret-bottom" />
         </div>
         <template #dropdown>
           <el-dropdown-menu slot="dropdown" class="user-dropdown">
             <router-link to="/">
-              <el-dropdown-item>
-                Home
-              </el-dropdown-item>
+              <el-dropdown-item> 主页 </el-dropdown-item>
             </router-link>
             <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
               <el-dropdown-item>Github</el-dropdown-item>
@@ -23,7 +21,7 @@
               <el-dropdown-item>Docs</el-dropdown-item>
             </a>
             <el-dropdown-item divided @click.native="logout">
-              <span style="display:block;">Log Out</span>
+              <span style="display: block">退出登录</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -32,7 +30,7 @@
   </div>
 </template>
 
-<script setup lang='ts'>
+<script setup lang="ts">
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import Hamburger from '@/components/Hamburger/index.vue'
 import { useAppStore } from '@/stores/app'
@@ -44,8 +42,7 @@ const router = useRouter()
 const appStore = useAppStore()
 const authStore = useAuthStore()
 const { name, avatar } = storeToRefs(authStore)
-const {sidebar } = storeToRefs(appStore)
-
+const { sidebar } = storeToRefs(appStore)
 
 const toggleClick = () => {
   appStore.toggleSidebar()
@@ -57,26 +54,25 @@ const logout = () => {
     path: '/login'
   })
 }
-
 </script>
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .navbar {
   height: 50px;
   overflow: hidden;
   position: relative;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
   .hamburger-container {
     line-height: 46px;
     height: 100%;
     float: left;
     cursor: pointer;
-    transition: background .3s;
+    transition: background 0.3s;
     -webkit-tap-highlight-color: transparent;
 
     &:hover {
-      background: rgba(0, 0, 0, .025)
+      background: rgba(0, 0, 0, 0.025);
     }
   }
 
@@ -103,10 +99,10 @@ const logout = () => {
 
       &.hover-effect {
         cursor: pointer;
-        transition: background .3s;
+        transition: background 0.3s;
 
         &:hover {
-          background: rgba(0, 0, 0, .025)
+          background: rgba(0, 0, 0, 0.025);
         }
       }
     }

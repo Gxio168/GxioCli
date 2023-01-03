@@ -1,31 +1,32 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form" :model="userInfo" :rules="rules" ref="ruleFormRef">
-      <div class="title-container">
-        <h3 class="title">Login Form</h3>
-      </div>
-      <el-form-item prop="username">
-        <el-input v-model="userInfo.username" placeholder="Please input userName"></el-input>
-      </el-form-item>
+    <div class="login-form">
+      <h3 class="title">Login Form</h3>
+      <el-form :model="userInfo" :rules="rules" ref="ruleFormRef">
+        <el-form-item prop="username">
+          <el-input v-model="userInfo.username" placeholder="Please input userName"></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input v-model="userInfo.password" show-password placeholder="Please input password">
+          </el-input>
+        </el-form-item>
+        <el-button
+          type="primary"
+          style="width: 100%; margin-bottom: 30px"
+          @click="handleLogin(ruleFormRef)"
+          >Login
+        </el-button>
 
-      <el-form-item prop="password">
-        <el-input :type="passwordType" v-model="userInfo.password" show-password placeholder="Please input password">
-        </el-input>
-      </el-form-item>
-
-      <el-button type="primary" style="width:100%;margin-bottom:30px;" @click="handleLogin(ruleFormRef)">Login
-      </el-button>
-
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
-      </div>
-
-    </el-form>
+        <div class="tips">
+          <span style="margin-right: 20px">username: admin</span>
+          <span> password: any</span>
+        </div>
+      </el-form>
+    </div>
   </div>
 </template>
 
-<script  setup lang='ts'>
+<script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import type { UserInfo } from '@/type/index'
@@ -42,17 +43,15 @@ const userInfo = reactive<UserInfo>({
   username: '',
   password: ''
 })
-// 初始化密码框状态
-const passwordType = ref('password')
 
 // 点击登录按钮触发登录
 const handleLogin = async (formEl: FormInstance | undefined) => {
-  await (formEl as FormInstance).validate(async (valid) => {
+  await (formEl as FormInstance).validate(async valid => {
     if (valid) {
       const result = await authStore.login(userInfo)
       if (result.statusCode === 200) {
         router.push({
-          path: route.query.redirect as string || '/'
+          path: (route.query.redirect as string) || '/'
         })
       }
     }
@@ -63,9 +62,7 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
 const ruleFormRef = ref<FormInstance>()
 // 表单验证
 const rules = authRules
-
 </script>
-
 
 <style lang="scss" scoped>
 $bg: #2d3a4b;
@@ -85,6 +82,12 @@ $light_gray: #eee;
     padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;
+    .title {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: white;
+    }
   }
 
   .tips {
@@ -98,7 +101,6 @@ $light_gray: #eee;
       }
     }
   }
-
 
   N .title-container {
     position: relative;
@@ -119,7 +121,6 @@ $light_gray: #eee;
     font-size: 16px;
     color: $dark_gray;
     cursor: pointer;
-    user-select: none;
   }
 }
 </style>

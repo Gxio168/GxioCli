@@ -1,4 +1,4 @@
-import type { FormInstance, FormRules } from 'element-plus'
+import type { FormRules } from 'element-plus'
 import { reactive } from 'vue'
 
 export const authRules = reactive<FormRules>({

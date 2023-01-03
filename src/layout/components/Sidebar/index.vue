@@ -1,10 +1,23 @@
 <template>
   <div>
     <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu :default-active="activeMenu" :unique-opened="false" :collapse-transition="false" mode="vertical"
-        background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF" router="true"
-        :collapse="isCollapse">
-        <SidebarItem v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
+      <el-menu
+        :default-active="activeMenu"
+        :unique-opened="false"
+        :collapse-transition="false"
+        mode="vertical"
+        background-color="#304156"
+        text-color="#bfcbd9"
+        active-text-color="#409EFF"
+        :router="true"
+        :collapse="isCollapse"
+      >
+        <SidebarItem
+          v-for="route in routes"
+          :key="route.path"
+          :item="route"
+          :base-path="route.path"
+        />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -13,7 +26,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import SidebarItem from "./SidebarItem.vue";
+import SidebarItem from './SidebarItem.vue'
 import { useAppStore } from '@/stores/app'
 import { storeToRefs } from 'pinia'
 
@@ -24,7 +37,7 @@ const router = useRouter()
 const route = useRoute()
 const routes = router.options.routes
 
-const activeMenu = computed(() => {
+const activeMenu = computed<any>(() => {
   const { meta, path } = route
   if (meta.activeMenu) {
     return meta.activeMenu
@@ -33,6 +46,4 @@ const activeMenu = computed(() => {
 })
 const isCollapse = computed(() => !sidebar.value.opened)
 </script>
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
