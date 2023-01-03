@@ -6,7 +6,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["element-plus/global", "node"],
+    "types": ["element-plus/global", "node"]
   },
 
   "references": [

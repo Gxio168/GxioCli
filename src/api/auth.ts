@@ -13,6 +13,6 @@ export const reqLogin = (userInfo: UserInfo) => {
 export const reqUserInfo = () => {
   return request({
     url: '/user/info',
-    method: 'get',
+    method: 'get'
   })
 }

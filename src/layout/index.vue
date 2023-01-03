@@ -1,6 +1,6 @@
 <template>
   <div class="app-wraper" :class="classObj">
-    <Sidebar class='sidebar-container' />
+    <Sidebar class="sidebar-container" />
     <div class="main-container">
       <Navbar />
       <AppMain />
@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script setup lang='ts'>
+<script setup lang="ts">
 import { Sidebar, Navbar, AppMain } from './components/index'
 import { useAppStore } from '@/stores/app'
 import { storeToRefs } from 'pinia'
@@ -21,17 +21,15 @@ const classObj = computed(() => {
   return {
     hideSidebar: !sidebar.value.opened,
     openSidebar: sidebar.value.opened,
-    withoutAnimation: sidebar.value.withoutAnimation,
+    withoutAnimation: sidebar.value.withoutAnimation
   }
 })
 
 const handleClickOutside = () => {
   appStore.closeSidebar(false)
 }
-
-
 </script>
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .app-wrapper {
   position: relative;
   height: 100%;

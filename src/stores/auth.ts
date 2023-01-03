@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     // 登录
     async login(userInfo: UserInfo) {
-      const result = await reqLogin(userInfo) as unknown as ReturnData
+      const result = (await reqLogin(userInfo)) as unknown as ReturnData
       if (result.statusCode === 200) {
         setToken(result.data.token)
         this.token = result.data.token
@@ -24,7 +24,7 @@ export const useAuthStore = defineStore('auth', {
     },
     // 获取用户信息
     async getUserInfo() {
-      const result = await reqUserInfo() as unknown as ReturnData
+      const result = (await reqUserInfo()) as unknown as ReturnData
       if (result.statusCode === 200) {
         this.userInfo = result.data
       }
@@ -46,5 +46,5 @@ export const useAuthStore = defineStore('auth', {
     avatar(state) {
       return state.userInfo.avatar
     }
-  },
+  }
 })

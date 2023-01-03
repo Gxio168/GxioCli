@@ -1,10 +1,10 @@
 export type UserInfo = {
-  username: string,
+  username: string
   password: string
 }
 
 export type ReturnData = {
-  data?: any,
-  statusCode: number,
+  data?: any
+  statusCode: number
   message: string
 }
