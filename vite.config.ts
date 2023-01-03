@@ -8,7 +8,6 @@ import { fileURLToPath, URL } from 'node:url'
 export default defineConfig({
   plugins: [vue(), vueJsx(), viteMockServe({
     mockPath: "./Mock/",
-    supportTs: true,
     watchFiles: true,
   })],
   resolve: {

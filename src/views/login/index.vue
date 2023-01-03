@@ -31,7 +31,7 @@ import { useAuthStore } from '@/stores/auth'
 import type { UserInfo } from '@/type/index'
 import { useRouter, useRoute } from 'vue-router'
 import { authRules } from '@/utils/validate'
-import type { FormInstance, FormRules } from 'element-plus'
+import type { FormInstance } from 'element-plus'
 
 const authStore = useAuthStore()
 const router = useRouter()
