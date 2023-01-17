@@ -46,4 +46,9 @@ const activeMenu = computed<any>(() => {
 })
 const isCollapse = computed(() => !sidebar.value.opened)
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.el-menu {
+  border: none;
+  border-right-width: 0;
+}
+</style>
