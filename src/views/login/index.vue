@@ -3,14 +3,27 @@
     <div class="login-form">
       <h3 class="title">Login Form</h3>
       <el-form :model="userInfo" :rules="rules" ref="ruleFormRef">
-        <el-form-item prop="username">
-          <el-input v-model="userInfo.username" placeholder="Please input userName"></el-input>
+        <el-form-item prop="username" style="display: flex">
+          <el-input
+            prefix-icon="UserFilled"
+            size="large"
+            v-model="userInfo.username"
+            placeholder="Please input userName"
+            width="80"
+          ></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="userInfo.password" show-password placeholder="Please input password">
+          <el-input
+            prefix-icon="Lock"
+            size="large"
+            v-model="userInfo.password"
+            show-password
+            placeholder="Please input password"
+          >
           </el-input>
         </el-form-item>
         <el-button
+          size="large"
           type="primary"
           style="width: 100%; margin-bottom: 30px"
           @click="handleLogin(ruleFormRef)"
@@ -77,7 +90,7 @@ $light_gray: #eee;
 
   .login-form {
     position: relative;
-    width: 520px;
+    width: 450px;
     max-width: 100%;
     padding: 160px 35px 0;
     margin: 0 auto;
@@ -85,8 +98,8 @@ $light_gray: #eee;
     .title {
       text-align: center;
       font-size: 24px;
-      margin-bottom: 10px;
-      color: white;
+      margin-bottom: 50px;
+      color: #eeeeee;
     }
   }
 
@@ -122,5 +135,14 @@ $light_gray: #eee;
     color: $dark_gray;
     cursor: pointer;
   }
+}
+.el-input {
+  --el-input-bg-color: #283443;
+  --el-input-text-color: white;
+  --el-input-border-color: #3e4957;
+  --el-input-focus-border: #3e4957;
+  --el-input-hover-border-color: #3e4957;
+  --el-input-focus-border-color: #3e4957;
+  --el-input-height: 50px;
 }
 </style>
