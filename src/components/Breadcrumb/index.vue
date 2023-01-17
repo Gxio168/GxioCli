@@ -4,14 +4,16 @@
       <el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
         <!-- 如果 路由中的 redirect === 'noRedirect' 或者当前路由是路由数组的最后一个路由时，用 span 来表示，禁止跳转 -->
         <!-- 实际上没有给 redirect 参数， 只要路由是最后一个路由就禁止跳转 -->
-        <span
-          v-if="item.redirect === 'noRedirect' || index == levelList.length - 1"
-          class="no-redirect"
-        >
-          {{ item.meta.title }}
-        </span>
+        <template v-if="item.redirect === 'noRedirect' || index == levelList.length - 1">
+          <el-button link :icon="item.meta.icon">{{ item.meta.title }}</el-button>
+          <!-- <span class="no-redirect">
+            {{ item.meta.title }}
+          </span> -->
+        </template>
         <!-- 其他情况下运行进行路由跳转 -->
-        <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
+        <el-button v-else link :icon="item.meta.icon" @click.prevent="handleLink(item)">{{
+          item.meta.title
+        }}</el-button>
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>
@@ -42,7 +44,9 @@ const getBreadcrumb = () => {
   // 如果第一个匹配到的路由不是 Dashboard
   if (!isDashboard(fitst)) {
     // 向匹配到的路由的开头补上 Dashboard
-    matched = [{ path: '/dashboard', meta: { title: 'Dashboard' } }].concat(matched as any) as any
+    matched = [{ path: '/dashboard', meta: { title: '首页', icon: 'home-filled' } }].concat(
+      matched as any
+    ) as any
   }
   // 匹配出所有包含 title 的路由
   levelList.value = matched.filter(
@@ -57,8 +61,6 @@ const isDashboard = (route: any) => {
 }
 
 const pathCompile = (path: string) => {
-  // 暂时不知道有什么用
-  const { params } = route
   return path
 }
 
@@ -84,12 +86,6 @@ const handleLink = (item: any) => {
     color: #97a8be;
     cursor: text;
   }
-}
-
-/* 修改面包屑样式 */
-a {
-  color: 000;
-  font-weight: 400;
 }
 
 /* breadcrumb transition */
