@@ -1,18 +1,11 @@
-import request from '@/utils/request'
+import request from '@/utils/request/index'
 import type { UserInfo } from '@/type/index'
 
 // 登录
 export const reqLogin = (userInfo: UserInfo) => {
-  return request({
-    url: '/user/login',
-    method: 'post',
-    data: userInfo
-  })
+  return request.post('/user/login', userInfo)
 }
 
 export const reqUserInfo = () => {
-  return request({
-    url: '/user/info',
-    method: 'get'
-  })
+  return request.get('/user/info')
 }
