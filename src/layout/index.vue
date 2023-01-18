@@ -16,12 +16,10 @@
 
 <script setup lang="ts">
 import { Sidebar, Navbar, AppMain } from './components/index'
-import { useAppStore } from '@/stores/app'
-import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
+import { useGlobalSystem } from '@/hooks/useGlobalSystem'
 
-const appStore = useAppStore()
-const { sidebar } = storeToRefs(appStore)
+const { sidebar } = useGlobalSystem()
 
 const asideWidth = computed(() => {
   if (sidebar.value.opened) {

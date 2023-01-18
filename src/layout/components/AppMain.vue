@@ -8,11 +8,9 @@
   </section>
 </template>
 
-
-<script setup lang='ts'>
-import { useRoute } from 'vue-router'
-
-const route = useRoute()
+<script setup lang="ts">
+import { useRouterOrRoute } from '@/hooks/useRoute'
+const { route } = useRouterOrRoute()
 const key = route.path
 </script>
 <style scoped>
@@ -28,7 +26,7 @@ const key = route.path
 <style lang="scss" scoped>
 .fade-transform-leave-active,
 .fade-transform-enter-active {
-  transition: all .5s;
+  transition: all 0.5s;
 }
 
 .fade-transform-enter-from {

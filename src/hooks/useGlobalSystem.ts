@@ -6,6 +6,7 @@ export function useGlobalSystem() {
   const appStore = useAppStore()
   const { sidebar } = storeToRefs(appStore)
   return {
-    sidebar
+    sidebar,
+    toggleSidebar: appStore.toggleSidebar
   }
 }

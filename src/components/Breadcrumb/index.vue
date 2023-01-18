@@ -20,13 +20,11 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router'
+import { useRouterOrRoute } from '@/hooks/useRoute'
 import { ref, onBeforeMount, watch } from 'vue'
 
+const { route, router } = useRouterOrRoute()
 const levelList = ref(null) as any
-
-const route = useRoute()
-const router = useRouter()
 
 // 页面初次加载
 onBeforeMount(() => {

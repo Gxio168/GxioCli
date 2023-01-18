@@ -43,13 +43,13 @@
 import { reactive, ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import type { UserInfo } from '@/type/index'
-import { useRouter, useRoute } from 'vue-router'
 import { authRules } from '@/utils/validate'
 import type { FormInstance } from 'element-plus'
 
+import { useRouterOrRoute } from '@/hooks/useRoute'
+
 const authStore = useAuthStore()
-const router = useRouter()
-const route = useRoute()
+const { route, router } = useRouterOrRoute()
 
 // 初始化用户信息
 const userInfo = reactive<UserInfo>({

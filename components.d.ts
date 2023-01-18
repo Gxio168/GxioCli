@@ -37,8 +37,10 @@ declare module '@vue/runtime-core' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
     ElTree: typeof import('element-plus/es')['ElTree']
+    FullScreen: typeof import('./src/components/FullScreen/index.vue')['default']
     Hamburger: typeof import('./src/components/Hamburger/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScreenFull: typeof import('./src/components/screenFull.vue')['default']
   }
 }

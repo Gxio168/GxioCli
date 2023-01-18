@@ -29,15 +29,13 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
 import SidebarItem from './SidebarItem.vue'
 
-// 钩子函数
+import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
 
 const { sidebar } = useGlobalSystem()
-const router = useRouter()
-const route = useRoute()
+const { route, router } = useRouterOrRoute()
 const routes = router.options.routes
 
 // 获取当前被点击的页面路径
@@ -70,6 +68,7 @@ const isCollapse = computed(() => !sidebar.value.opened)
     margin-left: 10px;
   }
   img {
+    cursor: pointer;
     width: 24px;
     height: 24px;
   }
