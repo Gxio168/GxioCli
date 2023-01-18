@@ -6,15 +6,13 @@ export const useAppStore = defineStore('app', {
     sidebar: {
       opened: docCookies.getItem('sidebarStatus')
         ? !!+(docCookies.getItem('sidebarStatus') as any)
-        : true,
-      withoutAnimation: false
+        : true
     }
   }),
   actions: {
     // 修改 sidebar 的状态
     toggleSidebar() {
       this.sidebar.opened = !this.sidebar.opened
-      this.sidebar.withoutAnimation = false
       // 如果是打开的
       if (this.sidebar.opened) {
         // 如果当前的 sidebar 是打开的，则设置为 1
@@ -25,10 +23,9 @@ export const useAppStore = defineStore('app', {
       }
     },
     // 关闭 sidebar
-    closeSidebar(withoutAnimation: boolean) {
+    closeSidebar() {
       docCookies.setItem('sidebarStatus', 0)
       this.sidebar.opened = false
-      this.sidebar.withoutAnimation = withoutAnimation
     }
   },
   getters: {}

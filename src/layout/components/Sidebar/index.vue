@@ -1,6 +1,10 @@
 <template>
   <div>
     <el-scrollbar wrap-class="scrollbar-wrapper">
+      <div class="title">
+        <img src="https://admin.spicyboy.cn/assets/svg/logo-7e7c7361.svg" alt="" />
+        <span v-if="sidebar.opened">Gxio Admin</span>
+      </div>
       <el-menu
         :default-active="activeMenu"
         :unique-opened="false"
@@ -27,16 +31,16 @@
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import SidebarItem from './SidebarItem.vue'
-import { useAppStore } from '@/stores/app'
-import { storeToRefs } from 'pinia'
 
-const appStore = useAppStore()
-const { sidebar } = storeToRefs(appStore)
+// 钩子函数
+import { useGlobalSystem } from '@/hooks/useGlobalSystem'
 
+const { sidebar } = useGlobalSystem()
 const router = useRouter()
 const route = useRoute()
 const routes = router.options.routes
 
+// 获取当前被点击的页面路径
 const activeMenu = computed<any>(() => {
   const { meta, path } = route
   if (meta.activeMenu) {
@@ -44,11 +48,30 @@ const activeMenu = computed<any>(() => {
   }
   return path
 })
+
 const isCollapse = computed(() => !sidebar.value.opened)
 </script>
 <style scoped lang="scss">
 .el-menu {
   border: none;
   border-right-width: 0;
+}
+
+.title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  span {
+    font-size: 20px;
+    font-weight: 600;
+    color: #dadada;
+    margin-left: 10px;
+  }
+  img {
+    width: 24px;
+    height: 24px;
+  }
 }
 </style>

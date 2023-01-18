@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import layout from '@/layout/index.vue'
 import { permission } from '@/utils/permission'
+import Nprogress from '@/utils/nprogress'
 
 /**
  *  如果只有唯一孩子，给唯一孩子一个 icon(作为显示图标)
@@ -73,5 +74,9 @@ const router = createRouter({
 
 // 前置守卫
 router.beforeEach(permission)
+
+router.afterEach(() => {
+  Nprogress.done()
+})
 
 export default router

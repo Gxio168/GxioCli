@@ -2,11 +2,13 @@ import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { getToken } from '@/utils/token'
 import type { NavigationGuardWithThis } from 'vue-router'
+import Nprogress from '@/utils/nprogress'
 
 // 白名单
 const whiteList = ['/login']
 
 export const permission: NavigationGuardWithThis<undefined> = async (to, from, next) => {
+  Nprogress.start()
   const authStore = useAuthStore()
   const token = getToken()
   // 如果本地存在token
