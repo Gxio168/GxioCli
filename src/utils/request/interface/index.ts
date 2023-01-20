@@ -1,8 +1,8 @@
 interface Result {
-  code: number
-  msg: string
+  statusCode: number
+  message: string
 }
 
-export interface ResultData<T = any> extends Result {
+export interface ResultData<T> extends Result {
   data: T
 }

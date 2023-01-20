@@ -1,21 +1,33 @@
 import { defineStore } from 'pinia'
-import { reqLogin, reqUserInfo } from '@/api/auth'
+import { reqLogin, reqUserInfo, reqUserRole } from '@/api/auth'
 import { getToken, setToken, removeToken } from '@/utils/token'
-import type { UserInfo, ReturnData } from '@/type/index'
 import { ElMessage } from 'element-plus'
+import { formatRoutes } from '@/utils/matchedRoutes'
+import type { UserInfo } from '@/type'
+import { dynamicRoutes } from '@/router/dynamicRoutes'
+import { staticRoutes } from '@/router/staticRoutes'
+import router from '@/router'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: getToken() || '',
-    userInfo: {} as any
+    userInfo: {} as any,
+    btnControl: [] as any,
+    components: [] as any,
+    menuList: [] as any
   }),
   actions: {
     // 登录
     async login(userInfo: UserInfo) {
-      const result = (await reqLogin(userInfo)) as unknown as ReturnData
+      const result = await reqLogin(userInfo)
       if (result.statusCode === 200) {
         setToken(result.data.token)
         this.token = result.data.token
+        await this.getUserInfo()
+        await this.getUserRole()
+        for (const item of dynamicRoutes) {
+          router.addRoute(item as any)
+        }
         ElMessage.success({
           message: '登录成功'
         })
@@ -24,7 +36,7 @@ export const useAuthStore = defineStore('auth', {
     },
     // 获取用户信息
     async getUserInfo() {
-      const result = (await reqUserInfo()) as unknown as ReturnData
+      const result = await reqUserInfo()
       if (result.statusCode === 200) {
         this.userInfo = result.data
       }
@@ -37,6 +49,28 @@ export const useAuthStore = defineStore('auth', {
       removeToken()
       this.token = ''
       this.userInfo = {}
+      this.btnControl = []
+      this.components = []
+      this.menuList = []
+    },
+    // 获取用户权限相关
+    async getUserRole() {
+      const res = await reqUserRole()
+      if (res.statusCode === 200) {
+        const result = res.data
+        this.components = result.components
+        this.btnControl = result.btnControl
+        for (const route of formatRoutes(this.components)) {
+          router.addRoute(route)
+        }
+        this.menuList = [...staticRoutes, ...[...this.components]]
+      }
+    },
+    loadingBeforeRender() {
+      for (const route of formatRoutes(this.components)) {
+        router.addRoute(route)
+      }
+      this.menuList = [...staticRoutes, ...this.components]
     }
   },
   getters: {
@@ -46,5 +80,8 @@ export const useAuthStore = defineStore('auth', {
     avatar(state) {
       return state.userInfo.avatar
     }
+  },
+  persist: {
+    storage: localStorage
   }
 })

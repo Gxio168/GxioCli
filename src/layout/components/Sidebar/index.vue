@@ -2,7 +2,7 @@
   <div>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <div class="title">
-        <img src="https://admin.spicyboy.cn/assets/svg/logo-7e7c7361.svg" alt="" />
+        <img src="../../../../public/favicon.ico" alt="" />
         <span v-if="sidebar.opened">Gxio Admin</span>
       </div>
       <el-menu
@@ -29,14 +29,15 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import SidebarItem from './SidebarItem.vue'
+import SidebarItem from './components/SidebarItem.vue'
+import { useAuthStore } from '@/stores/auth'
 
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
-
 const { sidebar } = useGlobalSystem()
-const { route, router } = useRouterOrRoute()
-const routes = router.options.routes
+const { route } = useRouterOrRoute()
+const authStore = useAuthStore()
+const routes = authStore.menuList
 
 // 获取当前被点击的页面路径
 const activeMenu = computed<any>(() => {

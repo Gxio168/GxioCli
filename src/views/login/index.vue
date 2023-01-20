@@ -45,11 +45,16 @@ import { useAuthStore } from '@/stores/auth'
 import type { UserInfo } from '@/type/index'
 import { authRules } from '@/utils/validate'
 import type { FormInstance } from 'element-plus'
+import { ElNotification } from 'element-plus'
+import { storeToRefs } from 'pinia'
 
 import { useRouterOrRoute } from '@/hooks/useRoute'
+import { useCurrentTime } from '@/hooks/useCurrentTime'
 
 const authStore = useAuthStore()
+const { name } = storeToRefs(authStore)
 const { route, router } = useRouterOrRoute()
+const { timeStr } = useCurrentTime()
 
 // 初始化用户信息
 const userInfo = reactive<UserInfo>({
@@ -62,7 +67,13 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
   await (formEl as FormInstance).validate(async valid => {
     if (valid) {
       const result = await authStore.login(userInfo)
+      // 如果登录成功
       if (result.statusCode === 200) {
+        ElNotification({
+          title: timeStr,
+          message: `欢迎登录 ${name.value}`,
+          type: 'success'
+        })
         router.push({
           path: (route.query.redirect as string) || '/'
         })

@@ -15,12 +15,12 @@ const key = route.path
 </script>
 <style scoped>
 .app-main {
-  /*50 = navbar  */
-  min-height: calc(100vh - 50px);
+  background-color: #eff1f4;
   width: 100%;
+  height: 93%;
   position: relative;
   overflow: hidden;
-  padding: 20px;
+  padding: 10px;
 }
 </style>
 <style lang="scss" scoped>

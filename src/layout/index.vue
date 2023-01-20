@@ -18,9 +18,10 @@
 import { Sidebar, Navbar, AppMain } from './components/index'
 import { computed } from 'vue'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
-
 const { sidebar } = useGlobalSystem()
 
+
+// 控制侧边栏的宽度
 const asideWidth = computed(() => {
   if (sidebar.value.opened) {
     return `${200}px`

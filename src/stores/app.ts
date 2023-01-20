@@ -1,32 +1,26 @@
 import { defineStore } from 'pinia'
-import { docCookies } from '@/utils/cookie'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
     sidebar: {
-      opened: docCookies.getItem('sidebarStatus')
-        ? !!+(docCookies.getItem('sidebarStatus') as any)
-        : true
+      opened: true
+    },
+    navbar: {
+      fullScreen: false
     }
   }),
   actions: {
-    // 修改 sidebar 的状态
+    // 切换 sidebar 的状态
     toggleSidebar() {
       this.sidebar.opened = !this.sidebar.opened
-      // 如果是打开的
-      if (this.sidebar.opened) {
-        // 如果当前的 sidebar 是打开的，则设置为 1
-        docCookies.setItem('sidebarStatus', 1)
-      } else {
-        // 否则设置为 0
-        docCookies.setItem('sidebarStatus', 0)
-      }
     },
-    // 关闭 sidebar
-    closeSidebar() {
-      docCookies.setItem('sidebarStatus', 0)
-      this.sidebar.opened = false
+    // 切换 是否全屏的状态
+    toggleFullScreen() {
+      this.navbar.fullScreen = !this.navbar.fullScreen
     }
   },
-  getters: {}
+  getters: {},
+  persist: {
+    storage: sessionStorage
+  }
 })

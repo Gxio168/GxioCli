@@ -8,19 +8,72 @@ const tokens = {
 }
 const user = {
   'admin-token': {
-    roles: ['admin'],
+    roles: 'admin',
     introduction: 'I am a super administrator',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: '管理员'
   },
   'editor-token': {
-    roles: ['editor'],
+    roles: 'editor',
     introduction: 'I am an editor',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: '一般用户'
   }
 }
 
+const roles = {
+  admin: {
+    components: [
+      {
+        path: '/role',
+        redirect: '/role/admin',
+        name: 'Role',
+        meta: { title: '权限管理', icon: 'menu' },
+        children: [
+          {
+            path: 'admin',
+            name: 'Admin',
+            meta: { title: '管理员界面', icon: 'Avatar' }
+          },
+          {
+            path: 'editor',
+            name: 'Editor',
+            meta: { title: '用户界面', icon: 'UserFilled' }
+          },
+          {
+            path: 'btn',
+            name: 'Btn',
+            meta: { title: '按钮权限', icon: 'tools' }
+          }
+        ]
+      }
+    ],
+    btnControl: ['role:btn:add', 'role:btn:delete', 'role:btn:update', 'role:btn:search']
+  },
+  editor: {
+    components: [
+      {
+        path: '/role',
+        redirect: '/role/admin',
+        name: 'Role',
+        meta: { title: '权限管理', icon: 'menu' },
+        children: [
+          {
+            path: 'editor',
+            name: 'Editor',
+            meta: { title: '用户界面', icon: 'UserFilled' }
+          },
+          {
+            path: 'btn',
+            name: 'Btn',
+            meta: { title: '按钮权限', icon: 'tools' }
+          }
+        ]
+      }
+    ],
+    btnControl: ['role:btn:update', 'role:btn:search']
+  }
+}
 module.exports = [
   // 用户登录
   {
@@ -54,6 +107,27 @@ module.exports = [
         return {
           statusCode: 200,
           data: info
+        }
+      } else {
+        return {
+          statusCode: 201,
+          message: '没有找到该用户'
+        }
+      }
+    }
+  },
+  // 获取用户能拥有的页面信息 和 按钮权限
+  {
+    url: '/api/user/role',
+    method: 'get',
+    response: config => {
+      const token = config.headers.token
+      const info = user[token]
+      const role = roles[info['roles']]
+      if (info) {
+        return {
+          statusCode: 200,
+          data: role
         }
       } else {
         return {

@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BellMessage: typeof import('./src/components/BellMessage/index.vue')['default']
     Breadcrumb: typeof import('./src/components/Breadcrumb/index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
@@ -35,12 +36,20 @@ declare module '@vue/runtime-core' {
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
+    ElTag: typeof import('element-plus/es')['ElTag']
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
     ElTree: typeof import('element-plus/es')['ElTree']
     FullScreen: typeof import('./src/components/FullScreen/index.vue')['default']
     Hamburger: typeof import('./src/components/Hamburger/index.vue')['default']
+    LayoutSwitch: typeof import('./src/components/LayoutSwitch/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ScreenFull: typeof import('./src/components/screenFull.vue')['default']
+    SearchPath: typeof import('./src/components/SearchPath/index.vue')['default']
+    SkinSwitch: typeof import('./src/components/SkinSwitch/index.vue')['default']
+    SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
+    Translate: typeof import('./src/components/Translate/index.vue')['default']
   }
 }

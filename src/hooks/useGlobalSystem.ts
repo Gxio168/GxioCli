@@ -4,9 +4,11 @@ import { useAppStore } from '@/stores/app'
 // 将 app 中的配置项全部解构返回
 export function useGlobalSystem() {
   const appStore = useAppStore()
-  const { sidebar } = storeToRefs(appStore)
+  const { sidebar, navbar } = storeToRefs(appStore)
   return {
     sidebar,
-    toggleSidebar: appStore.toggleSidebar
+    navbar,
+    toggleSidebar: appStore.toggleSidebar,
+    toggleFullScreen: appStore.toggleFullScreen
   }
 }
