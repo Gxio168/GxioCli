@@ -1,7 +1,7 @@
 import router from './router'
 import { createApp } from 'vue'
 
-import { registerIcon } from '@/global'
+import { registerIcon } from '@/global/register_icon'
 import { registerStore } from './stores'
 import { registerComponent } from './components'
 

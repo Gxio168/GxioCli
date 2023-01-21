@@ -1,30 +1,35 @@
 <template>
-  <div class="navbar">
-    <!-- 左侧 -->
-    <div class="left-box">
-      <hamburger-vue
-        :isActive="sidebar.opened"
-        class="hamburger-container"
-        @toggle-click="toggleClick"
-      />
-      <breadcrumb-vue />
+  <div class="content">
+    <div class="navbar">
+      <!-- 左侧 -->
+      <div class="left-box">
+        <hamburger-vue
+          :isActive="sidebar.opened"
+          class="hamburger-container"
+          @toggle-click="toggleClick"
+        />
+        <breadcrumb-vue />
+      </div>
+      <!-- 右侧 -->
+      <div class="right-box">
+        <!-- 布局切换 -->
+        <layout-switch-vue />
+        <!-- 翻译 -->
+        <translate-vue />
+        <!-- 路径搜索 -->
+        <search-path-vue />
+        <!-- 皮肤切换等操作 -->
+        <skin-switch-vue />
+        <!-- 消息提示框 -->
+        <bell-message-vue />
+        <!-- 页面放大 -->
+        <full-screen-vue />
+        <!-- 头像加名称 -->
+        <avator-vue />
+      </div>
     </div>
-    <!-- 右侧 -->
-    <div class="right-box">
-      <!-- 布局切换 -->
-      <layout-switch-vue />
-      <!-- 翻译 -->
-      <translate-vue />
-      <!-- 路径搜索 -->
-      <search-path-vue />
-      <!-- 皮肤切换等操作 -->
-      <skin-switch-vue />
-      <!-- 消息提示框 -->
-      <bell-message-vue />
-      <!-- 页面放大 -->
-      <full-screen-vue />
-      <!-- 头像加名称 -->
-      <avator-vue />
+    <div class="label-bar">
+      <label-bar-vue />
     </div>
   </div>
 </template>
