@@ -1,19 +1,25 @@
 <template>
-  <el-breadcrumb separator="/" class="app-breadcrumb">
+  <el-breadcrumb separator="/" class="app-breadcrumb" v-if="hamburgerOpen">
     <transition-group name="breadcrumb">
       <el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
         <!-- 如果 路由中的 redirect === 'noRedirect' 或者当前路由是路由数组的最后一个路由时，用 span 来表示，禁止跳转 -->
         <!-- 实际上没有给 redirect 参数， 只要路由是最后一个路由就禁止跳转 -->
         <template v-if="item.redirect === 'noRedirect' || index == levelList.length - 1">
-          <el-button link :icon="item.meta.icon">{{ item.meta.title }}</el-button>
+          <el-button link :icon="hamburgerIconOpen && item.meta.icon">{{
+            item.meta.title
+          }}</el-button>
           <!-- <span class="no-redirect">
             {{ item.meta.title }}
           </span> -->
         </template>
         <!-- 其他情况下运行进行路由跳转 -->
-        <el-button v-else link :icon="item.meta.icon" @click.prevent="handleLink(item)">{{
-          item.meta.title
-        }}</el-button>
+        <el-button
+          v-else
+          link
+          :icon="hamburgerIconOpen && item.meta.icon"
+          @click.prevent="handleLink(item)"
+          >{{ item.meta.title }}</el-button
+        >
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>
@@ -22,8 +28,11 @@
 <script setup lang="ts">
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { ref, onBeforeMount, watch } from 'vue'
+import { useGlobalSystem } from '@/hooks/useGlobalSystem'
 
 const { route, router } = useRouterOrRoute()
+// 控制 面包屑 和 面包屑图标的展示
+const { hamburgerIconOpen, hamburgerOpen } = useGlobalSystem()
 const levelList = ref(null) as any
 
 // 页面初次加载

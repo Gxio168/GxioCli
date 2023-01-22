@@ -6,22 +6,26 @@ import type { LabelItem } from './interface'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
-    sidebar: {
-      opened: true
-    },
-    navbar: {
-      fullScreen: false
-    },
+    sidebarOpen: true,
+    fullScreen: false,
+    themeColor: '',
+    isDark: false,
+    isGrey: false,
+    isAchromatism: false,
+    hamburgerOpen: true,
+    hamburgerIconOpen: true,
+    labelBarOpen: true,
+    labelBarIconOpen: true,
     labelbar: [HOME_PAGE] as Array<LabelItem>
   }),
   actions: {
     // 切换 sidebar 的状态
     toggleSidebar() {
-      this.sidebar.opened = !this.sidebar.opened
+      this.sidebarOpen = !this.sidebarOpen
     },
     // 切换 是否全屏的状态
     toggleFullScreen() {
-      this.navbar.fullScreen = !this.navbar.fullScreen
+      this.fullScreen = !this.fullScreen
     },
     // 添加标签
     addToLabelbar(labelItem: LabelItem) {
@@ -57,6 +61,14 @@ export const useAppStore = defineStore('app', {
       if (path !== HOME_PAGE.path) {
         this.labelbar.push(temp!)
       }
+    },
+    // 改变 灰色模式
+    changeIsGrey(value: boolean = false) {
+      this.isGrey = value
+    },
+    // 改变色弱模式
+    changeIsAchromatism(value: boolean = false) {
+      this.isAchromatism = value
     }
   },
   getters: {},

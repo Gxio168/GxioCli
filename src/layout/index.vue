@@ -4,13 +4,11 @@
       <el-aside :width="asideWidth" class="aside">
         <Sidebar class="sidebar-container" />
       </el-aside>
-      <el-container style="display: block">
+      <el-container class="container">
         <Navbar />
         <AppMain />
       </el-container>
     </el-container>
-
-    <div class="main-container"></div>
   </div>
 </template>
 
@@ -18,12 +16,11 @@
 import { Sidebar, Navbar, AppMain } from './components/index'
 import { computed } from 'vue'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
-const { sidebar } = useGlobalSystem()
-
+const { sidebarOpen } = useGlobalSystem()
 
 // 控制侧边栏的宽度
 const asideWidth = computed(() => {
-  if (sidebar.value.opened) {
+  if (sidebarOpen.value) {
     return `${200}px`
   } else {
     return `${60}px`
@@ -50,5 +47,11 @@ const asideWidth = computed(() => {
   &.close {
     width: 60px;
   }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 </style>

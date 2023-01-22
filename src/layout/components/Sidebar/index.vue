@@ -3,7 +3,7 @@
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <div class="title">
         <img src="../../../../public/favicon.ico" alt="" />
-        <span v-if="sidebar.opened">Gxio Admin</span>
+        <span v-if="sidebarOpen">Gxio Admin</span>
       </div>
       <el-menu
         :default-active="activeMenu"
@@ -34,7 +34,7 @@ import { useAuthStore } from '@/stores/auth'
 
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
-const { sidebar } = useGlobalSystem()
+const { sidebarOpen } = useGlobalSystem()
 const { route } = useRouterOrRoute()
 const authStore = useAuthStore()
 const routes = authStore.menuList
@@ -48,7 +48,7 @@ const activeMenu = computed<any>(() => {
   return path
 })
 
-const isCollapse = computed(() => !sidebar.value.opened)
+const isCollapse = computed(() => !sidebarOpen.value)
 </script>
 <style scoped lang="scss">
 .el-menu {

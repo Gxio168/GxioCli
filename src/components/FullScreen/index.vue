@@ -8,17 +8,17 @@
 import { computed } from 'vue'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
 
-const { navbar, toggleFullScreen } = useGlobalSystem()
+const { fullScreen, toggleFullScreen } = useGlobalSystem()
 
 const curName = computed(() => {
   let name
-  navbar.value.fullScreen ? (name = 'suoxiao') : (name = 'fangda')
+  fullScreen.value ? (name = 'suoxiao') : (name = 'fangda')
   return name
 })
 
 // 切换状态
 const changeScreen = () => {
-  if (navbar.value.fullScreen) {
+  if (fullScreen.value) {
     document.exitFullscreen()
   } else {
     document.body.requestFullscreen()

@@ -4,7 +4,7 @@
       <!-- 左侧 -->
       <div class="left-box">
         <hamburger-vue
-          :isActive="sidebar.opened"
+          :isActive="sidebarOpen"
           class="hamburger-container"
           @toggle-click="toggleClick"
         />
@@ -38,7 +38,7 @@
 import avatorVue from './components/avator.vue'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
 
-const { sidebar, toggleSidebar } = useGlobalSystem()
+const { sidebarOpen, toggleSidebar } = useGlobalSystem()
 
 const toggleClick = () => {
   toggleSidebar()

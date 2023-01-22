@@ -17,8 +17,11 @@ declare module '@vue/runtime-core' {
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
+    ElDivider: typeof import('element-plus/es')['ElDivider']
+    ElDrawer: typeof import('element-plus/es')['ElDrawer']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
@@ -53,6 +56,7 @@ declare module '@vue/runtime-core' {
     SearchPath: typeof import('./src/components/SearchPath/index.vue')['default']
     SkinSwitch: typeof import('./src/components/SkinSwitch/index.vue')['default']
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
+    ThemeItem: typeof import('./src/components/ThemeItem/index.vue')['default']
     Translate: typeof import('./src/components/Translate/index.vue')['default']
   }
 }

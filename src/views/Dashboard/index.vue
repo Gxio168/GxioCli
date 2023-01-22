@@ -1,16 +1,19 @@
 <template>
-  <div>
-    首页
-    <br />
-    <span style="font-size: 30px">{{ name }}</span>
+  <div class="img-box">
+    <img src="https://admin.spicyboy.cn/assets/png/welcome-65a50eaa.png" />
   </div>
 </template>
 
-<script setup lang="ts">
-import { useAuthStore } from '@/stores/auth'
-import { storeToRefs } from 'pinia'
-
-const authStore = useAuthStore()
-const { name } = storeToRefs(authStore)
-</script>
-<style scoped lang="less"></style>
+<script setup lang="ts"></script>
+<style scoped lang="scss">
+.img-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  img {
+    width: 75%;
+    height: 75%;
+  }
+}
+</style>

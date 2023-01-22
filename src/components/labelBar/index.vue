@@ -1,5 +1,5 @@
 <template>
-  <div class="label-bar">
+  <div class="label-bar" v-if="labelBarOpen">
     <div class="label-list">
       <el-tabs
         tab-position="top"
@@ -12,7 +12,7 @@
         <template v-for="(item, index) in labelbar" :key="item">
           <el-tab-pane :closable="index === 0 ? false : true" :name="item.path">
             <template #label>
-              <component :is="item.icon" style="width: 14px"></component>
+              <component v-if="labelBarIconOpen" :is="item.icon" style="width: 14px"></component>
               {{ item.title }}
             </template>
           </el-tab-pane>
@@ -51,8 +51,15 @@ import { HOME_PAGE } from '@/global'
 import type { LabelItem } from '@/stores/interface'
 
 const { route, router } = useRouterOrRoute()
-const { labelbar, addToLabelbar, removeFromLabelbar, clearLabelbar, closeOthersLabelbar } =
-  useGlobalSystem()
+const {
+  labelbar,
+  addToLabelbar,
+  removeFromLabelbar,
+  clearLabelbar,
+  closeOthersLabelbar,
+  labelBarIconOpen,
+  labelBarOpen
+} = useGlobalSystem()
 
 // 监视路由的变化，进行 tab 标签的增加
 watch(
