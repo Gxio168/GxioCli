@@ -37,7 +37,9 @@
 <script setup lang="ts">
 import avatorVue from './components/avator.vue'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
+import { useChangeDark } from '@/hooks/useChangeDark'
 
+const { bgColor } = useChangeDark()
 const { sidebarOpen, toggleSidebar } = useGlobalSystem()
 
 const toggleClick = () => {
@@ -50,7 +52,7 @@ const toggleClick = () => {
   overflow: hidden;
   display: flex;
   justify-content: space-around;
-  background: #fff;
+  background: v-bind(bgColor);
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   .right-box {
     height: 100%;
@@ -73,7 +75,7 @@ const toggleClick = () => {
       -webkit-tap-highlight-color: transparent;
 
       &:hover {
-        background: rgba(0, 0, 0, 0.025);
+        background: v-bind(bgColor);
       }
     }
   }

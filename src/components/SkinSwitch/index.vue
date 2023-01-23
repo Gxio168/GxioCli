@@ -14,6 +14,7 @@
             <div class="theme-item" v-for="item in theme.themeItem" :key="item.name">
               <span>{{ item.label }}</span>
               <el-color-picker
+                :predefine="predefineColors"
                 v-if="item.default === 'color-picker'"
                 v-model="appStore[item.name]"
               />
@@ -39,6 +40,7 @@ const handleToggleDrawer = (value: boolean = true) => {
   isVisible.value = value
 }
 
+// 监视两个按钮的互斥作用
 watch(
   () => appStore.isGrey,
   newVal => {
@@ -55,6 +57,17 @@ watch(
     }
   }
 )
+
+// 预设颜色
+const predefineColors = ref([
+  '#ff4500',
+  '#ff8c00',
+  '#ffd700',
+  '#90ee90',
+  '#00ced1',
+  '#1e90ff',
+  '#c71585'
+])
 </script>
 <style scoped lang="scss">
 .skin-swtich {

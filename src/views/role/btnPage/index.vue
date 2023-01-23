@@ -13,12 +13,14 @@
 
 <script setup lang="ts">
 import { useBtnPermisson } from '@/hooks/useBtnPermisson'
+import { useChangeDark } from '@/hooks/useChangeDark'
+
+const { bgColor } = useChangeDark()
 const { btnAdd, btnDelete, btnSearch, btnUpdate } = useBtnPermisson()
-// console.log(a)
 </script>
 <style scoped lang="scss">
 .btn-page {
-  background-color: white;
+  background-color: v-bind(bgColor);
   width: 100%;
   height: 100%;
   border-radius: 5px;
@@ -26,7 +28,7 @@ const { btnAdd, btnDelete, btnSearch, btnUpdate } = useBtnPermisson()
   padding: 10px;
 }
 button.el-button {
-  --el-button-text-color: white !important;
-  --el-button-hover-text-color: white !important;
+  --el-button-text-color: v-bind(bgColor) !important;
+  --el-button-hover-text-color: v-bind(bgColor) !important;
 }
 </style>

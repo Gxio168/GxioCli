@@ -58,7 +58,8 @@ const {
   clearLabelbar,
   closeOthersLabelbar,
   labelBarIconOpen,
-  labelBarOpen
+  labelBarOpen,
+  themeColor
 } = useGlobalSystem()
 
 // 监视路由的变化，进行 tab 标签的增加
@@ -131,7 +132,7 @@ const handleLabelItemClear = () => {
   margin: 0 !important;
 }
 :deep(.el-tabs__item.is-active) {
-  border-bottom: 2px solid #409eff !important;
+  border-bottom: 2px solid v-bind(themeColor) !important;
 }
 :deep(.el-tabs__item) {
   border: none !important;

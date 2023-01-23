@@ -8,7 +8,7 @@ export const useAppStore = defineStore('app', {
   state: () => ({
     sidebarOpen: true,
     fullScreen: false,
-    themeColor: '',
+    themeColor: '#ff6700',
     isDark: false,
     isGrey: false,
     isAchromatism: false,

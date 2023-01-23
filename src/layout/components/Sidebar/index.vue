@@ -12,7 +12,7 @@
         mode="vertical"
         background-color="#304156"
         text-color="#bfcbd9"
-        active-text-color="#409EFF"
+        :active-text-color="themeColor"
         :router="true"
         :collapse="isCollapse"
       >
@@ -34,7 +34,8 @@ import { useAuthStore } from '@/stores/auth'
 
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
-const { sidebarOpen } = useGlobalSystem()
+
+const { sidebarOpen, themeColor } = useGlobalSystem()
 const { route } = useRouterOrRoute()
 const authStore = useAuthStore()
 const routes = authStore.menuList

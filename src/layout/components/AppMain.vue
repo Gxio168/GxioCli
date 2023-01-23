@@ -12,12 +12,15 @@
 
 <script setup lang="ts">
 import { useRouterOrRoute } from '@/hooks/useRoute'
+import { useChangeDark } from '@/hooks/useChangeDark'
+
+const { bgColor } = useChangeDark()
 const { route } = useRouterOrRoute()
 const key = route.path
 </script>
 <style lang="scss" scoped>
 .app-main {
-  background-color: #eff1f4;
+  background-color: v-bind(bgColor);
   width: 100%;
   height: 100%;
   position: relative;
@@ -30,7 +33,7 @@ const key = route.path
 }
 :deep(.el-scrollbar__view) {
   height: 100%;
-  background-color: white;
+  background-color: v-bind(bgColor);
 }
 
 .fade-transform-enter-from {

@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick } from 'vue'
+import { ref } from 'vue'
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import type { AutocompleteInstance } from 'element-plus'
 
