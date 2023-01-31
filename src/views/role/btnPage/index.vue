@@ -24,8 +24,6 @@ const { btnAdd, btnDelete, btnSearch, btnUpdate } = useBtnPermisson()
   width: 100%;
   height: 100%;
   border-radius: 5px;
-  box-shadow: 0 0 10px 1px rgba($color: #000000, $alpha: 0.1);
-  padding: 10px;
 }
 button.el-button {
   --el-button-text-color: v-bind(bgColor) !important;

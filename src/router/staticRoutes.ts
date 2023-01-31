@@ -1,4 +1,5 @@
 import layout from '@/layout/index.vue'
+import type { RouteRecordRaw } from 'vue-router'
 import type { unionRoutes } from './interface'
 
 /**
@@ -24,5 +25,13 @@ export const staticRoutes: Array<unionRoutes> = [
         meta: { title: '首页', icon: 'home-filled' }
       }
     ]
-  },
+  }
 ]
+
+//  404 界面, 用于在添加完成动态路由后添加，保证在最后载入
+export const NotFound = {
+  path: '/:pathMatch(.*)',
+  component: () => import('@/views/NotFound.vue'),
+  name: 'NotFound',
+  hidden: true
+} as RouteRecordRaw

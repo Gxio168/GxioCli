@@ -9,12 +9,10 @@ import router from '@/router'
 const whiteList = ['/login']
 
 export const permission: NavigationGuardWithThis<undefined> = async (to, from, next) => {
-  let hasRoles = true
-  if (hasRoles && to.matched.length === 0) {
-    hasRoles = false
+  // 获取动态路由后进行跳转
+  if (to.matched.length === 0) {
     router.push({ ...to, replace: true })
   }
-
   Nprogress.start()
   const authStore = useAuthStore()
   const token = getToken()

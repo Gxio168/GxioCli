@@ -33,11 +33,5 @@ export const dynamicRoutes: Array<unionRoutes> = [
         meta: { title: '按钮权限', icon: 'tools' }
       }
     ]
-  },
-  {
-    path: '/:pathMatch(.*)',
-    component: () => import('@/views/NotFound.vue'),
-    name: 'NotFound',
-    hidden: true
   }
 ]

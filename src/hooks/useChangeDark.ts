@@ -3,7 +3,7 @@ import { useGlobalSystem } from './useGlobalSystem'
 
 export function useChangeDark() {
   const { isDark } = useGlobalSystem()
-  const DARK = '#121212'
+  const DARK = '#141414'
   const LIGHT = '#ffffff'
   let bgColor = ref(LIGHT)
   let textColor = ref(DARK)
@@ -24,6 +24,7 @@ export function useChangeDark() {
   )
   return {
     bgColor: bgColor,
-    textColor: textColor
+    textColor: textColor,
+    isDark
   }
 }

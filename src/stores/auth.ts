@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
+import router from '@/router'
 import { reqLogin, reqUserInfo, reqUserRole } from '@/api/auth'
 import { getToken, setToken, removeToken } from '@/utils/token'
 import { ElMessage } from 'element-plus'
 import { formatRoutes } from '@/utils/matchedRoutes'
-import type { UserInfo } from '@/type'
 import { dynamicRoutes } from '@/router/dynamicRoutes'
-import { staticRoutes } from '@/router/staticRoutes'
-import router from '@/router'
+import { staticRoutes, NotFound } from '@/router/staticRoutes'
+import type { UserInfo } from '@/type'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -63,13 +63,17 @@ export const useAuthStore = defineStore('auth', {
         for (const route of formatRoutes(this.components)) {
           router.addRoute(route)
         }
+        router.addRoute(NotFound)
         this.menuList = [...staticRoutes, ...[...this.components]]
       }
     },
+
+    // 定义方法在全局每次刷新时调用
     loadingBeforeRender() {
       for (const route of formatRoutes(this.components)) {
         router.addRoute(route)
       }
+      router.addRoute(NotFound)
       this.menuList = [...staticRoutes, ...this.components]
     }
   },
