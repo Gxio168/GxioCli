@@ -16,9 +16,9 @@
               <el-color-picker
                 :predefine="predefineColors"
                 v-if="item.default === 'color-picker'"
-                v-model="appStore[item.name]"
+                v-model="(storeData[item.name as unknown as string]).value"
               />
-              <el-switch v-else v-model="appStore[item.name]" />
+              <el-switch v-else v-model="storeData[item.name].value" />
             </div>
           </div>
         </el-scrollbar>
@@ -29,10 +29,13 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
+
 import config from './config'
-import { useAppStore } from '@/stores/app'
+import { useAppStore } from '@/stores/modules/app'
 
 const appStore = useAppStore()
+const storeData = storeToRefs(appStore) as any
 
 const isVisible = ref(false)
 

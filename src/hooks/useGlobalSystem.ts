@@ -1,5 +1,5 @@
 import { storeToRefs } from 'pinia'
-import { useAppStore } from '@/stores/app'
+import { useAppStore } from '@/stores/modules/app'
 
 // 将 app 中的配置项全部解构返回
 export function useGlobalSystem() {

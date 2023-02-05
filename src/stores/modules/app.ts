@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import router from '@/router'
 
 import { HOME_PAGE } from '@/global'
-import type { LabelItem } from './interface'
+import type { LabelItem } from '../interface'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
@@ -73,6 +73,6 @@ export const useAppStore = defineStore('app', {
   },
   getters: {},
   persist: {
-    storage: sessionStorage
+    storage: localStorage
   }
 })

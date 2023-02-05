@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/modules/auth'
 import { storeToRefs } from 'pinia'
 import { useRouterOrRoute } from '@/hooks/useRoute'
 

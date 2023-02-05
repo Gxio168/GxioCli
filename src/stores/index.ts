@@ -1,7 +1,7 @@
 import { createPinia } from 'pinia'
 import type { App } from 'vue'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-import { useAuthStore } from './auth'
+import { useAuthStore } from './modules/auth'
 
 export const registerStore = (app: App<Element>) => {
   const pinia = createPinia()

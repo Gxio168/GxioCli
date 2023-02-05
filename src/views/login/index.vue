@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/modules/auth'
 import type { UserInfo } from '@/type/index'
 import { authRules } from '@/utils/validate'
 import type { FormInstance } from 'element-plus'

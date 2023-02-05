@@ -1,5 +1,5 @@
 import { useRoute } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/modules/auth'
 
 import type { BtnPermisson } from './interface'
 

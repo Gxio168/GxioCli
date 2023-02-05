@@ -25,24 +25,33 @@ const roles = {
   admin: {
     components: [
       {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: '/dashboard',
+        meta: { title: '首页', icon: 'home-filled' }
+      },
+      {
         path: '/role',
         redirect: '/role/admin',
         name: 'Role',
         meta: { title: '权限管理', icon: 'menu' },
         children: [
           {
-            path: 'admin',
+            path: '/role/admin',
             name: 'Admin',
+            component: '/role/adminPage',
             meta: { title: '管理员界面', icon: 'Avatar' }
           },
           {
-            path: 'editor',
+            path: '/role/editor',
             name: 'Editor',
+            component: '/role/editorPage',
             meta: { title: '用户界面', icon: 'UserFilled' }
           },
           {
-            path: 'btn',
+            path: '/role/btn',
             name: 'Btn',
+            component: '/role/btnPage',
             meta: { title: '按钮权限', icon: 'tools' }
           }
         ]
@@ -53,19 +62,27 @@ const roles = {
   editor: {
     components: [
       {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: '/dashboard',
+        meta: { title: '首页', icon: 'home-filled' }
+      },
+      {
         path: '/role',
         redirect: '/role/admin',
         name: 'Role',
         meta: { title: '权限管理', icon: 'menu' },
         children: [
           {
-            path: 'editor',
+            path: '/role/editor',
             name: 'Editor',
+            component: '/role/editorPage',
             meta: { title: '用户界面', icon: 'UserFilled' }
           },
           {
-            path: 'btn',
+            path: '/role/btn',
             name: 'Btn',
+            component: '/role/btnPage',
             meta: { title: '按钮权限', icon: 'tools' }
           }
         ]
@@ -74,7 +91,7 @@ const roles = {
     btnControl: ['role:btn:update', 'role:btn:search']
   }
 }
-module.exports = [
+export default [
   // 用户登录
   {
     url: '/api/user/login',

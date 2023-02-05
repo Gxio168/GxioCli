@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import SidebarItem from './components/SidebarItem.vue'
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/modules/auth'
 
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'

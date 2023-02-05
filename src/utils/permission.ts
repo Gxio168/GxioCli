@@ -1,5 +1,5 @@
 import { storeToRefs } from 'pinia'
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/modules/auth'
 import { getToken } from '@/utils/token'
 import type { NavigationGuardWithThis } from 'vue-router'
 import Nprogress from '@/utils/nprogress'
@@ -10,8 +10,10 @@ const whiteList = ['/login']
 
 export const permission: NavigationGuardWithThis<undefined> = async (to, from, next) => {
   // 获取动态路由后进行跳转
-  if (to.matched.length === 0) {
+  let isFinish = false
+  if (!isFinish && to.matched.length === 0) {
     router.push({ ...to, replace: true })
+    isFinish = true
   }
   Nprogress.start()
   const authStore = useAuthStore()
