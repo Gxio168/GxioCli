@@ -1,1 +1,0 @@
-import{_ as e,o as c,c as o}from"./index.123f106b.js";const t={},s={class:"editor-page"};function n(r,_){return c(),o("div",s," \u7528\u6237\u754C\u9762 ")}const d=e(t,[["render",n]]);export{d as default};

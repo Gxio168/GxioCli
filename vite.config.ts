@@ -13,6 +13,7 @@ import { sshPlugin } from './vite-plugin-ssh/vite-plugin-ssh'
 export default ({ command }: ConfigEnv): UserConfigExport => {
   let prodMock = true
   return {
+    base: './',
     plugins: [
       vue(),
       vueJsx(),
@@ -54,6 +55,6 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
     server: {
       open: true,
       cors: true
-    }
+    },
   }
 }
