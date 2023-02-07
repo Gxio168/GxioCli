@@ -1,0 +1,1 @@
+import{_ as o,o as _,c,a as n,f as s}from"./index.123f106b.js";const t={},a={class:"layout-switch"};function r(d,i){const e=s("svg-icon-vue");return _(),c("div",a,[n(e,{name:"buju"})])}const l=o(t,[["render",r],["__scopeId","data-v-e905a385"]]);export{l as default};

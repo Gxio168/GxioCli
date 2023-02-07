@@ -1,0 +1,1 @@
+import{_ as s,o as a,c,ag as o,ah as t,b as _}from"./index.123f106b.js";const n={},d=e=>(o("data-v-57a55ace"),e=e(),t(),e),p={class:"img-box"},i=d(()=>_("img",{src:"https://admin.spicyboy.cn/assets/png/welcome-65a50eaa.png"},null,-1)),r=[i];function l(e,h){return a(),c("div",p,r)}const u=s(n,[["render",l],["__scopeId","data-v-57a55ace"]]);export{u as default};
