@@ -7,11 +7,9 @@
     "
   >
     <el-menu-item :index="resolvePath(onlyOneChild.path)" :route="resolvePath(onlyOneChild.path)">
-      <template #default>
-        <div :class="{ activeItem: item.path === route.path, menuItem: true }">
-          <el-icon><component :is="onlyOneChild.meta.icon" /> </el-icon>
-          <span>{{ onlyOneChild.meta.title }}</span>
-        </div>
+      <el-icon><component :is="onlyOneChild.meta.icon" /> </el-icon>
+      <template #title>
+        <span v-if="sidebarOpen">{{ onlyOneChild.meta.title }}</span>
       </template>
     </el-menu-item>
   </template>
@@ -35,19 +33,20 @@
 import { ref } from 'vue'
 import { resolve } from 'path-browserify'
 
-import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
+import { useRouterOrRoute } from '@/hooks/useRoute'
 
+const { themeColor, sidebarOpen } = useGlobalSystem()
 const { route } = useRouterOrRoute()
-const { themeColor } = useGlobalSystem()
 
 type Props = {
   item: any
   basePath: string
   isNest?: Boolean
 }
-
 const props = defineProps<Props>()
+
+// 判断当前路由是否有子路由
 const onlyOneChild = ref(null) as any
 const hasOneShowingChild = (children: Array<any> = [], parent: any): boolean => {
   // 对所有孩子路由进行遍历
@@ -75,7 +74,7 @@ const resolvePath = (routePath: string) => {
 }
 </script>
 <style scoped lang="scss">
-.activeItem {
+.is-active {
   position: relative;
   background-color: #263445;
   &::before {
@@ -87,12 +86,5 @@ const resolvePath = (routePath: string) => {
     height: 100%;
     background-color: v-bind(themeColor);
   }
-}
-.menuItem {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  padding: 0
-    calc(var(--el-menu-base-level-padding) + var(--el-menu-level) * var(--el-menu-level-padding));
 }
 </style>

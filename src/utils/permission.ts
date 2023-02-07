@@ -3,18 +3,11 @@ import { useAuthStore } from '@/stores/modules/auth'
 import { getToken } from '@/utils/token'
 import type { NavigationGuardWithThis } from 'vue-router'
 import Nprogress from '@/utils/nprogress'
-import router from '@/router'
 
 // 白名单
 const whiteList = ['/login']
 
 export const permission: NavigationGuardWithThis<undefined> = async (to, from, next) => {
-  // 获取动态路由后进行跳转
-  let isFinish = false
-  if (!isFinish && to.matched.length === 0) {
-    router.push({ ...to, replace: true })
-    isFinish = true
-  }
   Nprogress.start()
   const authStore = useAuthStore()
   const token = getToken()
@@ -29,13 +22,9 @@ export const permission: NavigationGuardWithThis<undefined> = async (to, from, n
       if (components.value.length && name.value) {
         next()
       } else {
-        try {
-          await authStore.getUserInfo()
-          await authStore.getUserRole()
-          next()
-        } catch (error) {
-          next('/login')
-        }
+        await authStore.getUserInfo()
+        await authStore.getUserRole()
+        next({ ...to, replace: true })
       }
     }
   } else {
@@ -47,5 +36,4 @@ export const permission: NavigationGuardWithThis<undefined> = async (to, from, n
       next(`/login?redirect=${to.path}`)
     }
   }
-  next()
 }

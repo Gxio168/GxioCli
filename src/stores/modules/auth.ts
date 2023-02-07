@@ -75,6 +75,7 @@ export const useAuthStore = defineStore('auth', {
     }
   },
   persist: {
+    paths: ['token', 'userInfo', 'btnControl'],
     storage: localStorage
   }
 })

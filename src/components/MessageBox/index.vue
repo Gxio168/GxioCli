@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <transition name="fade">
-      <div @click="close()" class="mask" v-if="isVisible"></div>
+      <div @click="$emit('update:isVisible', false)" class="mask" v-if="isVisible"></div>
     </transition>
     <transition name="up">
       <div class="content" v-if="isVisible">
@@ -15,14 +15,8 @@
 type Props = {
   isVisible: boolean
 }
-
 defineProps<Props>()
-
-const emit = defineEmits(['update:isVisibel'])
-
-const close = () => {
-  emit('update:isVisibel', false)
-}
+defineEmits(['update:isVisible'])
 </script>
 <style scoped lang="scss">
 .mask {

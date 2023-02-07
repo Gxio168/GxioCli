@@ -3,7 +3,7 @@
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <div class="title">
         <img src="../../../../public/favicon.ico" alt="" />
-        <span v-if="sidebarOpen">Gxio Admin</span>
+        <span v-if="sidebarOpen" style="white-space: nowrap">Gxio Admin</span>
       </div>
       <el-menu
         :default-active="activeMenu"

@@ -1,10 +1,15 @@
 <template>
   <div class="skin-swtich">
     <svg-icon-vue name="pifu" @click="handleToggleDrawer" />
-    <el-drawer v-model="isVisible" direction="rtl" title="布局设置" style="width: 300px">
+    <el-drawer v-model="isVisible" direction="rtl" title="布局设置">
       <template #default>
         <el-scrollbar height="100%">
-          <div class="theme-contain" v-for="theme in config" :key="theme.title">
+          <div
+            class="theme-contain"
+            v-for="theme in config"
+            :key="theme.title"
+            style="width: 300px"
+          >
             <el-divider>
               <div class="title">
                 <component :is="theme.icon" style="width: 12px; margin-right: 5px"></component>
@@ -39,8 +44,8 @@ const storeData = storeToRefs(appStore) as any
 
 const isVisible = ref(false)
 
-const handleToggleDrawer = (value: boolean = true) => {
-  isVisible.value = value
+const handleToggleDrawer = () => {
+  isVisible.value = !isVisible.value
 }
 
 // 监视两个按钮的互斥作用
@@ -61,7 +66,7 @@ watch(
   }
 )
 
-// 预设颜色
+// 颜色选择器预设颜色
 const predefineColors = ref([
   '#ff4500',
   '#ff8c00',
