@@ -1,6 +1,6 @@
 <template>
   <div class="full-screen">
-    <svg-icon-vue :name="curName" color="#000" @click="changeScreen" />
+    <svg-icon-vue :name="curName" @click="changeScreen" />
   </div>
 </template>
 

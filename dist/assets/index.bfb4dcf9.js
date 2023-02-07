@@ -1,1 +1,0 @@
-import{_ as n,o as _,c as o,a as s,f as c}from"./index.f75166f8.js";const t={},a={class:"translate"};function r(d,i){const e=c("svg-icon-vue");return _(),o("div",a,[s(e,{name:"fanyi"})])}const l=n(t,[["render",r],["__scopeId","data-v-9a332f37"]]);export{l as default};

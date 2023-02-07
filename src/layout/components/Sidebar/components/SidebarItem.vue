@@ -9,7 +9,7 @@
     <el-menu-item :index="resolvePath(onlyOneChild.path)" :route="resolvePath(onlyOneChild.path)">
       <el-icon><component :is="onlyOneChild.meta.icon" /> </el-icon>
       <template #title>
-        <span v-if="sidebarOpen">{{ onlyOneChild.meta.title }}</span>
+        <span>{{ onlyOneChild.meta.title }}</span>
       </template>
     </el-menu-item>
   </template>
@@ -34,10 +34,8 @@ import { ref } from 'vue'
 import { resolve } from 'path-browserify'
 
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
-import { useRouterOrRoute } from '@/hooks/useRoute'
 
-const { themeColor, sidebarOpen } = useGlobalSystem()
-const { route } = useRouterOrRoute()
+const { themeColor } = useGlobalSystem()
 
 type Props = {
   item: any

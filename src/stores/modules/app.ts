@@ -47,7 +47,7 @@ export const useAppStore = defineStore('app', {
       })
     },
     // 清空标签
-    clearLabelbar(path: string) {
+    clearLabelbar(path: string = '/dashboard') {
       this.labelbar.length = 1
       // 判断一下当前是否在主页
       if (path !== HOME_PAGE.path) {

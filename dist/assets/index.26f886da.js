@@ -1,0 +1,1 @@
+import{_ as e,o as c,c as n}from"./index.82c1fd7b.js";const o={},s={class:"admin-page"};function t(a,r){return c(),n("div",s," \u7BA1\u7406\u5458\u754C\u9762 ")}const d=e(o,[["render",t]]);export{d as default};

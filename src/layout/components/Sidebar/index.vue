@@ -61,7 +61,8 @@ watch(
     } else {
       sidebarOpen.value = true
     }
-  }
+  },
+  { immediate: true }
 )
 </script>
 <style scoped lang="scss">

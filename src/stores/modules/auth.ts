@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
+import { ElMessage } from 'element-plus'
 import { reqLogin, reqUserInfo, reqUserRole } from '@/api/auth'
 import { getToken, setToken, removeToken } from '@/utils/token'
-import { ElMessage } from 'element-plus'
 import { initDynamicRoutes } from '@/router/modules/dynamicRoutes'
 import { getShowMenuList } from '@/utils/matchedRoutes'
 import type { UserInfo } from '@/type'
+import { useAppStore } from './app'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -52,6 +53,8 @@ export const useAuthStore = defineStore('auth', {
       ElMessage.success({
         message: '退出登录成功'
       })
+      const appStore = useAppStore()
+      appStore.clearLabelbar()
       removeToken()
       this.token = ''
       this.userInfo = {}

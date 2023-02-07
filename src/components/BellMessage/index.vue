@@ -1,7 +1,7 @@
 <template>
   <div class="bell-message">
     <el-dropdown trigger="click">
-      <svg-icon-vue name="xiaoxi" />
+      <svg-icon-vue name="xiaoxi" style="outline: none" />
       <template #dropdown>
         <div class="tabs">
           <el-tabs v-model="activeName" class="list-tabs">
