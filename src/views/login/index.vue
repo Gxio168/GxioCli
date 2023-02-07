@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { useAuthStore } from '@/stores/modules/auth'
 import type { UserInfo } from '@/type/index'
 import { authRules } from '@/utils/validate'
@@ -53,7 +53,7 @@ import { useCurrentTime } from '@/hooks/useCurrentTime'
 
 const authStore = useAuthStore()
 const { name } = storeToRefs(authStore)
-const { route, router } = useRouterOrRoute()
+const { router, route } = useRouterOrRoute()
 const { timeStr } = useCurrentTime()
 
 // 初始化用户信息
@@ -62,6 +62,17 @@ const userInfo = reactive<UserInfo>({
   password: ''
 })
 
+// 处理 路由重定向
+const routeQuery = ref({}) as any
+watch(
+  () => route.query,
+  newVal => {
+    routeQuery.value = newVal
+  },
+  {
+    immediate: true
+  }
+)
 // 点击登录按钮触发登录
 const handleLogin = async (formEl: FormInstance | undefined) => {
   await (formEl as FormInstance).validate(async valid => {
@@ -75,7 +86,7 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
           type: 'success'
         })
         router.push({
-          path: (route.query.redirect as string) || '/'
+          path: (routeQuery.value.redirect as string) || '/'
         })
       }
     }

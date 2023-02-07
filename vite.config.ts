@@ -8,6 +8,7 @@ import { resolve } from 'node:path'
 import { viteMockServe } from 'vite-plugin-mock'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import { sshPlugin } from './vite-plugin-ssh/vite-plugin-ssh'
 
 export default ({ command }: ConfigEnv): UserConfigExport => {
   let prodMock = true
@@ -35,6 +36,14 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
         iconDirs: [resolve(process.cwd(), 'src/assets/svgIcon')],
         // 指定symbolId格式
         symbolId: 'icon-[dir]-[name]'
+      }),
+      sshPlugin({
+        entryPath: './dist',
+        host: 'localhost',
+        port: 2222,
+        username: 'gxio',
+        password: '123456789',
+        remotePath: '/home/gxio/nginxTest/www/www.nginxtest.com'
       })
     ],
     resolve: {

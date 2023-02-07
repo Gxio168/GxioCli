@@ -40,9 +40,12 @@ onBeforeMount(() => {
   getBreadcrumb()
 })
 // 监视路由的变化
-watch(route, () => {
-  getBreadcrumb()
-})
+watch(
+  () => route.fullPath,
+  () => {
+    getBreadcrumb()
+  }
+)
 
 // 获取面包屑中要显示的路由
 const getBreadcrumb = () => {

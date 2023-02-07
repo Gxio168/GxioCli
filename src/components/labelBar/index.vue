@@ -7,7 +7,7 @@
         type="card"
         @edit="handleLabelItemRemove"
         @tab-click="handleLabelItemClick"
-        v-model="route.path"
+        v-model="curPath"
       >
         <template v-for="(item, index) in labelbar" :key="item">
           <el-tab-pane :closable="index === 0 ? false : true" :name="item.path">
@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue'
+import { watch, computed } from 'vue'
 
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
@@ -64,7 +64,7 @@ const {
 
 // 监视路由的变化，进行 tab 标签的增加
 watch(
-  () => route.path,
+  () => route.fullPath,
   () => {
     const labelItem: LabelItem = {
       path: route.path,
@@ -99,6 +99,11 @@ const handleLabelItemCloseOther = () => {
 const handleLabelItemClear = () => {
   clearLabelbar(route.path)
 }
+
+// 获取当前路由参数
+const curPath = computed(() => {
+  return route.path
+})
 </script>
 
 <style scoped lang="scss">

@@ -6,14 +6,12 @@
       !item.alwaysShow
     "
   >
-    <el-menu-item
-      :index="resolvePath(onlyOneChild.path)"
-      :route="resolvePath(onlyOneChild.path)"
-      :class="[{ activeItem: resolvePath(onlyOneChild.path) === route.path }]"
-    >
-      <el-icon><component :is="onlyOneChild.meta.icon" /> </el-icon>
-      <template #title>
-        <span>{{ onlyOneChild.meta.title }}</span>
+    <el-menu-item :index="resolvePath(onlyOneChild.path)" :route="resolvePath(onlyOneChild.path)">
+      <template #default>
+        <div :class="{ activeItem: item.path === route.path, menuItem: true }">
+          <el-icon><component :is="onlyOneChild.meta.icon" /> </el-icon>
+          <span>{{ onlyOneChild.meta.title }}</span>
+        </div>
       </template>
     </el-menu-item>
   </template>
@@ -48,6 +46,7 @@ type Props = {
   basePath: string
   isNest?: Boolean
 }
+
 const props = defineProps<Props>()
 const onlyOneChild = ref(null) as any
 const hasOneShowingChild = (children: Array<any> = [], parent: any): boolean => {
@@ -79,7 +78,6 @@ const resolvePath = (routePath: string) => {
 .activeItem {
   position: relative;
   background-color: #263445;
-  color: white;
   &::before {
     content: '';
     position: absolute;
@@ -89,5 +87,12 @@ const resolvePath = (routePath: string) => {
     height: 100%;
     background-color: v-bind(themeColor);
   }
+}
+.menuItem {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  padding: 0
+    calc(var(--el-menu-base-level-padding) + var(--el-menu-level) * var(--el-menu-level-padding));
 }
 </style>
