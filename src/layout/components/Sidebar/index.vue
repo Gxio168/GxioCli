@@ -7,7 +7,7 @@
       </div>
       <el-menu
         :default-active="activeMenu"
-        :unique-opened="false"
+        :unique-opened="true"
         :collapse-transition="false"
         mode="vertical"
         background-color="#304156"
@@ -28,14 +28,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import SidebarItem from './components/SidebarItem.vue'
 import { useAuthStore } from '@/stores/modules/auth'
 
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
+import { useWindowWidth } from '@/hooks/useWindowWidth'
 
 const { sidebarOpen, themeColor } = useGlobalSystem()
+const { pageWidth } = useWindowWidth()
 const { route } = useRouterOrRoute()
 const authStore = useAuthStore()
 const routes = authStore.menuList
@@ -49,7 +51,18 @@ const activeMenu = computed<any>(() => {
   return path
 })
 
+// 判断页面宽度来控制是否折叠
 const isCollapse = computed(() => !sidebarOpen.value)
+watch(
+  () => pageWidth.value,
+  newVal => {
+    if (newVal < 1025) {
+      sidebarOpen.value = false
+    } else {
+      sidebarOpen.value = true
+    }
+  }
+)
 </script>
 <style scoped lang="scss">
 .el-menu {

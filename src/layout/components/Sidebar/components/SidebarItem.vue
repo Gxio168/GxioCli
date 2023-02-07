@@ -1,43 +1,47 @@
-<template>
-  <template v-if="!item.hidden">
-    <template
-      v-if="
-        hasOneShowingChild(item.children, item) &&
-        (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
-        !item.alwaysShow
-      "
+<template v-if="!item.hidden">
+  <template
+    v-if="
+      hasOneShowingChild(item.children, item) &&
+      (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
+      !item.alwaysShow
+    "
+  >
+    <el-menu-item
+      :index="resolvePath(onlyOneChild.path)"
+      :route="resolvePath(onlyOneChild.path)"
+      :class="[{ activeItem: resolvePath(onlyOneChild.path) === route.path }]"
     >
-      <el-menu-item
-        :index="resolvePath(onlyOneChild.path)"
-        :route="resolvePath(onlyOneChild.path)"
-        :class="{ 'submenu-title-noDropdown': !isNest }"
-      >
-        <el-icon><component :is="onlyOneChild.meta.icon" /> </el-icon>
-        <template #title>
-          <span>{{ onlyOneChild.meta.title }}</span>
-        </template>
-      </el-menu-item>
-    </template>
-    <el-sub-menu v-else :index="resolvePath(item.path)">
+      <el-icon><component :is="onlyOneChild.meta.icon" /> </el-icon>
       <template #title>
-        <el-icon><component :is="item.meta.icon" /> </el-icon>
-        <span>{{ item.meta.title }}</span>
+        <span>{{ onlyOneChild.meta.title }}</span>
       </template>
-      <SidebarItem
-        v-for="child in item.children"
-        :key="child.path"
-        :is-nest="true"
-        :item="child"
-        class="nest-menu"
-        :base-path="resolvePath(child.path)"
-      />
-    </el-sub-menu>
+    </el-menu-item>
   </template>
+  <el-sub-menu v-else :index="resolvePath(item.path)">
+    <template #title>
+      <el-icon><component :is="item.meta.icon" /> </el-icon>
+      <span>{{ item.meta.title }}</span>
+    </template>
+    <SidebarItem
+      v-for="child in item.children"
+      :key="child.path"
+      :is-nest="true"
+      :item="child"
+      class="nest-menu"
+      :base-path="resolvePath(child.path)"
+    />
+  </el-sub-menu>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { resolve } from 'path-browserify'
+
+import { useRouterOrRoute } from '@/hooks/useRoute'
+import { useGlobalSystem } from '@/hooks/useGlobalSystem'
+
+const { route } = useRouterOrRoute()
+const { themeColor } = useGlobalSystem()
 
 type Props = {
   item: any
@@ -71,4 +75,19 @@ const resolvePath = (routePath: string) => {
   return resolve(props.basePath, routePath)
 }
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.activeItem {
+  position: relative;
+  background-color: #263445;
+  color: white;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background-color: v-bind(themeColor);
+  }
+}
+</style>
