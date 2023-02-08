@@ -22,18 +22,18 @@
     <div class="more">
       <el-dropdown trigger="click">
         <el-button type="primary" size="small">
-          更多<el-icon class="el-icon--right"><arrow-down /></el-icon>
+          {{ $t('tabs.more') }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
         </el-button>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item icon="remove" @click="handleLabelItemRemove(route.path)"
-              >关闭当前</el-dropdown-item
+            <el-dropdown-item icon="remove" @click="handleLabelItemRemove(route.path)">
+              {{ $t('tabs.closeCurrent') }}</el-dropdown-item
             >
-            <el-dropdown-item icon="circleClose" @click="handleLabelItemCloseOther"
-              >关闭其他</el-dropdown-item
+            <el-dropdown-item icon="circleClose" @click="handleLabelItemCloseOther">
+              {{ $t('tabs.closeOther') }}</el-dropdown-item
             >
-            <el-dropdown-item icon="FolderDelete" @click="handleLabelItemClear"
-              >关闭所有</el-dropdown-item
+            <el-dropdown-item icon="FolderDelete" @click="handleLabelItemClear">
+              {{ $t('tabs.closeAll') }}</el-dropdown-item
             >
           </el-dropdown-menu>
         </template>

@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { ElMessage } from 'element-plus'
-import { reqLogin, reqUserInfo, reqUserRole } from '@/api/auth'
+import { reqLogin, reqUserInfo, reqUserRole } from '@/api/modules/auth'
 import { getToken, setToken, removeToken } from '@/utils/token'
 import { initDynamicRoutes } from '@/router/modules/dynamicRoutes'
 import { getShowMenuList } from '@/utils/matchedRoutes'
-import type { UserInfo } from '@/type'
+import type { UserInfo } from '@/types'
 import { useAppStore } from './app'
 
 export const useAuthStore = defineStore('auth', {
@@ -19,34 +19,28 @@ export const useAuthStore = defineStore('auth', {
     // 登录
     async login(userInfo: UserInfo) {
       const result = await reqLogin(userInfo)
-      if (result.statusCode === 200) {
-        setToken(result.data.token)
-        this.token = result.data.token
-        await this.getUserInfo()
-        await this.getUserRole()
-        ElMessage.success({
-          message: '登录成功'
-        })
-      }
+      setToken(result.data.token)
+      this.token = result.data.token
+      await this.getUserInfo()
+      await this.getUserRole()
+      ElMessage.success({
+        message: '登录成功'
+      })
       return result
     },
     // 获取用户信息
     async getUserInfo() {
       const result = await reqUserInfo()
-      if (result.statusCode === 200) {
-        this.userInfo = result.data
-      }
+      this.userInfo = result.data
     },
     // 获取用户权限相关
     async getUserRole() {
       const res = await reqUserRole()
-      if (res.statusCode === 200) {
-        const result = res.data
-        this.components = result.components
-        this.btnControl = result.btnControl
-        initDynamicRoutes(this.components)
-        this.menuList = getShowMenuList(this.components)
-      }
+      const result = res.data
+      this.components = result.components
+      this.btnControl = result.btnControl
+      initDynamicRoutes(this.components)
+      this.menuList = getShowMenuList(this.components)
     },
     // 退出登录
     logout() {

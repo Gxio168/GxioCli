@@ -42,7 +42,7 @@
 <script setup lang="ts">
 import { reactive, ref, watch } from 'vue'
 import { useAuthStore } from '@/stores/modules/auth'
-import type { UserInfo } from '@/type/index'
+import type { UserInfo } from '@/types/index'
 import { authRules } from '@/utils/validate'
 import type { FormInstance } from 'element-plus'
 import { ElNotification } from 'element-plus'
@@ -77,18 +77,22 @@ watch(
 const handleLogin = async (formEl: FormInstance | undefined) => {
   await (formEl as FormInstance).validate(async valid => {
     if (valid) {
-      const result = await authStore.login(userInfo)
-      // 如果登录成功
-      if (result.statusCode === 200) {
-        ElNotification({
-          title: timeStr,
-          message: `欢迎登录 ${name.value}`,
-          type: 'success'
+      authStore
+        .login(userInfo)
+        .then(result => {
+          // 如果登录成功
+          if (result.statusCode === 200) {
+            ElNotification({
+              title: timeStr,
+              message: `欢迎登录 ${name.value}`,
+              type: 'success'
+            })
+            router.push({
+              path: (routeQuery.value.redirect as string) || '/'
+            })
+          }
         })
-        router.push({
-          path: (routeQuery.value.redirect as string) || '/'
-        })
-      }
+        .catch(err => {})
     }
   })
 }

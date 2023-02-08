@@ -1,10 +1,14 @@
 <template>
   <div class="layout-switch">
-    <svg-icon-vue name="buju"  />
+    <svg-icon-vue name="buju" @click="handleClick" />
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const handleClick = () => {
+  console.log(1)
+}
+</script>
 <style scoped lang="scss">
 .layout-switch {
   display: flex;

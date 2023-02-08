@@ -16,6 +16,7 @@ export const useAppStore = defineStore('app', {
     hamburgerIconOpen: true,
     labelBarOpen: true,
     labelBarIconOpen: true,
+    isChinese: true,
     labelbar: [HOME_PAGE] as Array<LabelItem>
   }),
   actions: {
@@ -69,6 +70,9 @@ export const useAppStore = defineStore('app', {
     // 改变色弱模式
     changeIsAchromatism(value: boolean = false) {
       this.isAchromatism = value
+    },
+    toggleLanguage(isChinese: boolean) {
+      this.isChinese = isChinese
     }
   },
   getters: {},

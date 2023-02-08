@@ -74,7 +74,8 @@ const resolvePath = (routePath: string) => {
 <style scoped lang="scss">
 .is-active {
   position: relative;
-  background-color: #263445;
+  background-color: var(--menu_bg-active);
+  color: white;
   &::before {
     content: '';
     position: absolute;

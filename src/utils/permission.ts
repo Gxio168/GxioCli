@@ -3,11 +3,15 @@ import { useAuthStore } from '@/stores/modules/auth'
 import { getToken } from '@/utils/token'
 import type { NavigationGuardWithThis } from 'vue-router'
 import Nprogress from '@/utils/nprogress'
+import { AxiosCanceler } from '@/api/helper/axiosCancel'
+
+const axiosCanceler = new AxiosCanceler()
 
 // 白名单
 const whiteList = ['/login']
 
 export const permission: NavigationGuardWithThis<undefined> = async (to, from, next) => {
+  axiosCanceler.removeAllPending()
   Nprogress.start()
   const authStore = useAuthStore()
   const token = getToken()

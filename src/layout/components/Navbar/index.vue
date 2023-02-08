@@ -36,6 +36,11 @@
 
 <script setup lang="ts">
 import avatorVue from './components/avator.vue'
+import translateVue from './components/translate.vue'
+import bellMessageVue from './components/bellMessage.vue'
+import fullScreenVue from './components/fullScreen.vue'
+import layoutSwitchVue from './components/layoutSwitch.vue'
+
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
 import { useChangeDark } from '@/hooks/useChangeDark'
 

@@ -21,7 +21,7 @@ const props = defineProps({
   },
   iconStyle: {
     type: String,
-    default: 'width: 20px; height: 20px'
+    default: 'width: 20px; height: 20px;'
   }
 })
 

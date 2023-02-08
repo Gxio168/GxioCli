@@ -2,18 +2,18 @@
   <div class="app-wraper">
     <el-container style="height: 100%">
       <el-aside :width="asideWidth" class="aside">
-        <Sidebar class="sidebar-container" />
+        <Sidebar-vue class="sidebar-container" />
       </el-aside>
       <el-container class="container">
-        <Navbar />
-        <AppMain />
+        <Navbar-vue />
+        <AppMain-vue />
       </el-container>
     </el-container>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Sidebar, Navbar, AppMain } from './components/index'
+import { SidebarVue, NavbarVue, AppMainVue } from './components/index'
 import { computed } from 'vue'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
 const { sidebarOpen } = useGlobalSystem()
@@ -35,7 +35,7 @@ const asideWidth = computed(() => {
   overflow: hidden;
   .sidebar-container {
     height: 100%;
-    background-color: #304156;
+    background-color: var(--menu_bg);
   }
 }
 

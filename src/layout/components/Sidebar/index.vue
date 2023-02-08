@@ -10,7 +10,7 @@
         :unique-opened="true"
         :collapse-transition="false"
         mode="vertical"
-        background-color="#304156"
+        background-color="#191a20"
         text-color="#bfcbd9"
         :active-text-color="themeColor"
         :router="true"

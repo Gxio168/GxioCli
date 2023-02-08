@@ -1,6 +1,6 @@
-import request from '@/utils/request/index'
-import type { UserInfo } from '@/type/index'
-import type { Token } from './interface'
+import request from '../index.js'
+import type { UserInfo } from '@/types/index'
+import type { Token } from '../interface'
 
 // 登录
 export const reqLogin = (userInfo: UserInfo) => {

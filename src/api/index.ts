@@ -1,11 +1,17 @@
 import axios from 'axios'
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { ElMessage } from 'element-plus'
+
+import { getToken, removeToken } from '@/utils/token'
+import { AxiosCanceler } from './helper/axiosCancel'
+import { ResultEnum } from '@/types'
 import type { ResultData } from './interface'
-import { getToken } from '@/utils/token'
+
+const axiosCanceler = new AxiosCanceler()
 
 const option: AxiosRequestConfig = {
   baseURL: '/api',
-  timeout: 5000
+  timeout: ResultEnum.TIMEOUT
 }
 
 class Request {
@@ -16,6 +22,8 @@ class Request {
       (config: AxiosRequestConfig) => {
         // 处理 token
         const token = getToken()
+        // 将当前请求添加至 pendingMap
+        axiosCanceler.addPending(config)
         if (token) {
           config!.headers!.token = token
         }
@@ -26,8 +34,22 @@ class Request {
       }
     )
     this.instance.interceptors.response.use(
-      (res: AxiosResponse) => {
-        return res.data
+      (response: AxiosResponse) => {
+        const { data, config } = response
+        // 发送请求成功后移除出 pendingMap
+        axiosCanceler.removePending(config)
+        if (data.statusCode && data.statusCode === ResultEnum.OVERDUE) {
+          // 帐号登录失败
+          ElMessage.error(data.message)
+          removeToken()
+          return Promise.reject(data)
+        }
+        if (data.statusCode && data.statusCode !== ResultEnum.SUCCESS) {
+          // 一般请求失败的情况
+          ElMessage.error(data.message)
+          return Promise.reject(data)
+        }
+        return data
       },
       err => {
         return Promise.reject(err)

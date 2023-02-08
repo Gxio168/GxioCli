@@ -10,7 +10,9 @@ import type { unionRoutes } from '../interface'
 export const staticRoutes: Array<unionRoutes> = [
   {
     path: '/login',
-    component: () => import(`@/views/login/index.vue`),
+    component: () => {
+      return import(`@/views/login/index.vue`)
+    },
     hidden: true
   },
   {

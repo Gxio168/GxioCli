@@ -1,3 +1,9 @@
+export enum ResultEnum {
+  SUCCESS = 200,
+  TIMEOUT = 5000,
+  OVERDUE = 599
+}
+
 export type UserInfo = {
   username: string
   password: string
