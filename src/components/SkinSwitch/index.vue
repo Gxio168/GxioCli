@@ -68,7 +68,7 @@ watch(
 
 // 颜色选择器预设颜色
 const predefineColors = ref([
-  '#ff4500',
+  '#009688',
   '#ff8c00',
   '#ffd700',
   '#90ee90',
