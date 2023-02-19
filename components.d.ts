@@ -7,7 +7,6 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    BellMessage: typeof import('./src/components/BellMessage/index.vue')['default']
     Breadcrumb: typeof import('./src/components/Breadcrumb/index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAutocomplete: typeof import('element-plus/es')['ElAutocomplete']
@@ -32,21 +31,16 @@ declare module '@vue/runtime-core' {
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElOption: typeof import('element-plus/es')['ElOption']
-    ElPagination: typeof import('element-plus/es')['ElPagination']
-    ElRaw: typeof import('element-plus/es')['ElRaw']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
-    ElTable: typeof import('element-plus/es')['ElTable']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
-    FullScreen: typeof import('./src/components/FullScreen/index.vue')['default']
     Hamburger: typeof import('./src/components/Hamburger/index.vue')['default']
     LabelBar: typeof import('./src/components/labelBar/index.vue')['default']
-    LayoutSwitch: typeof import('./src/components/LayoutSwitch/index.vue')['default']
     MessageBox: typeof import('./src/components/MessageBox/index.vue')['default']
     NotFound: typeof import('./src/components/NotFound/index.vue')['default']
     PageContent: typeof import('./src/components/PageContent/index.vue')['default']
@@ -55,6 +49,5 @@ declare module '@vue/runtime-core' {
     SearchPath: typeof import('./src/components/SearchPath/index.vue')['default']
     SkinSwitch: typeof import('./src/components/SkinSwitch/index.vue')['default']
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
-    Translate: typeof import('./src/components/Translate/index.vue')['default']
   }
 }
