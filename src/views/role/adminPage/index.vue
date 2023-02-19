@@ -1,11 +1,8 @@
 <template>
-  <div class="admin-page">
-    管理员界面
-  </div>
+  <page-content-vue>
+    <template #title>管理员界面 🍓🍇🍐🍉</template>
+  </page-content-vue>
 </template>
 
-<script setup lang='ts'>
-
-</script>
-<style scoped lang='scss'>
-</style>
+<script setup lang="ts"></script>
+<style scoped lang="scss"></style>

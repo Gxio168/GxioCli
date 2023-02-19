@@ -15,7 +15,7 @@ import { computed } from 'vue'
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useChangeDark } from '@/hooks/useChangeDark'
 
-const { bgColor, isDark } = useChangeDark()
+const { isDark } = useChangeDark()
 const { route } = useRouterOrRoute()
 const key = route.path
 
@@ -34,7 +34,6 @@ const appBgc = computed(() => {
   height: 100%;
   position: relative;
   overflow: hidden;
-  padding: 10px;
   background-color: v-bind(appBgc);
 }
 .fade-transform-leave-active,
@@ -43,7 +42,6 @@ const appBgc = computed(() => {
 }
 :deep(.el-scrollbar__view) {
   height: 100%;
-  background-color: v-bind(bgColor);
   border: 1px solid var(--el-border-color-light);
   border-radius: 5px;
   padding: 10px;

@@ -28,16 +28,18 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed, watch, onBeforeUnmount } from 'vue'
 import SidebarItem from './components/SidebarItem.vue'
 import { useAuthStore } from '@/stores/modules/auth'
 
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
 import { useWindowWidth } from '@/hooks/useWindowWidth'
-
+onBeforeUnmount(() => {
+  cancelHandleWindow()
+})
 const { sidebarOpen, themeColor } = useGlobalSystem()
-const { pageWidth } = useWindowWidth()
+const { pageWidth, cancelHandleWindow } = useWindowWidth()
 const { route } = useRouterOrRoute()
 const authStore = useAuthStore()
 const routes = authStore.menuList

@@ -1,7 +1,7 @@
 <template>
-  <div class="editor-page">
-    用户界面
-  </div>
+  <page-content-vue>
+    <template #title>用户界面 🍓🍇🍐🍉</template>
+  </page-content-vue>
 </template>
 
 <script setup lang="ts"></script>

@@ -27,6 +27,7 @@
           type="primary"
           style="width: 100%; margin-bottom: 30px"
           @click="handleLogin(ruleFormRef)"
+          :loading="isLoading"
           >Login
         </el-button>
 
@@ -41,12 +42,12 @@
 
 <script setup lang="ts">
 import { reactive, ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/modules/auth'
 import type { UserInfo } from '@/types/index'
 import { authRules } from '@/utils/validate'
 import type { FormInstance } from 'element-plus'
 import { ElNotification } from 'element-plus'
-import { storeToRefs } from 'pinia'
 
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useCurrentTime } from '@/hooks/useCurrentTime'
@@ -77,19 +78,23 @@ watch(
 const handleLogin = async (formEl: FormInstance | undefined) => {
   await (formEl as FormInstance).validate(async valid => {
     if (valid) {
+      isLoading.value = true
       authStore
         .login(userInfo)
         .then(result => {
           // 如果登录成功
           if (result.statusCode === 200) {
-            ElNotification({
-              title: timeStr,
-              message: `欢迎登录 ${name.value}`,
-              type: 'success'
-            })
-            router.push({
-              path: (routeQuery.value.redirect as string) || '/'
-            })
+            setTimeout(() => {
+              isLoading.value = false
+              ElNotification({
+                title: timeStr,
+                message: `欢迎登录 ${name.value}`,
+                type: 'success'
+              })
+              router.push({
+                path: (routeQuery.value.redirect as string) || '/'
+              })
+            }, 1000)
           }
         })
         .catch(err => {})
@@ -101,6 +106,9 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
 const ruleFormRef = ref<FormInstance>()
 // 表单验证
 const rules = authRules
+
+// 按钮加载状态, 模拟网络延迟
+const isLoading = ref(false)
 </script>
 
 <style lang="scss" scoped>

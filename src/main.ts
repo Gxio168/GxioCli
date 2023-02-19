@@ -3,12 +3,15 @@ import { createApp } from 'vue'
 
 import errorHandler from './utils/errorHandler'
 import i18n from '@/language'
-import { registerIcon } from '@/global/register_icon'
+
+// 注册 icon 组件
+import { registerIcon } from '@/utils/register'
+
+// 注册 store
 import { registerStore } from './stores'
 import { registerComponent } from './components'
 
 import App from './App.vue'
-import '@/global/register_element_style'
 import '@/style/index.scss'
 import 'virtual:svg-icons-register'
 

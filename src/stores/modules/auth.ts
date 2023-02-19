@@ -23,9 +23,6 @@ export const useAuthStore = defineStore('auth', {
       this.token = result.data.token
       await this.getUserInfo()
       await this.getUserRole()
-      ElMessage.success({
-        message: '登录成功'
-      })
       return result
     },
     // 获取用户信息

@@ -27,11 +27,14 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item icon="remove" @click="handleLabelItemRemove(route.path)">
+              <!-- 关闭当前 -->
               {{ $t('tabs.closeCurrent') }}</el-dropdown-item
             >
+            <!-- 关闭其他 -->
             <el-dropdown-item icon="circleClose" @click="handleLabelItemCloseOther">
               {{ $t('tabs.closeOther') }}</el-dropdown-item
             >
+            <!-- 关闭所有 -->
             <el-dropdown-item icon="FolderDelete" @click="handleLabelItemClear">
               {{ $t('tabs.closeAll') }}</el-dropdown-item
             >
@@ -47,7 +50,7 @@ import { watch, computed } from 'vue'
 
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
-import { HOME_PAGE } from '@/global'
+import { HOME_PAGE } from '@/config'
 import type { LabelItem } from '@/stores/interface'
 
 const { route, router } = useRouterOrRoute()

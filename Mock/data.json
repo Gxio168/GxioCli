@@ -70,6 +70,35 @@
               }
             }
           ]
+        },
+        {
+          "path": "/table",
+          "redirect": "/table/basic",
+          "name": "Table",
+          "meta": {
+            "title": "超级表格",
+            "icon": "messageBox"
+          },
+          "children": [
+            {
+              "path": "/table/basic",
+              "name": "BasicTable",
+              "component": "/table/basicForm",
+              "meta": {
+                "title": "基本表单",
+                "icon": "tools"
+              }
+            },
+            {
+              "path": "/table/test",
+              "name": "TestTable",
+              "component": "/table/testForm",
+              "meta": {
+                "title": "测试表单",
+                "icon": "tools"
+              }
+            }
+          ]
         }
       ],
       "btnControl": [

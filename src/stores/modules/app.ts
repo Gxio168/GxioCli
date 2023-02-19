@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import router from '@/router'
 
-import { HOME_PAGE } from '@/global'
+import { HOME_PAGE } from '@/config'
 import type { LabelItem } from '../interface'
 
 export const useAppStore = defineStore('app', {

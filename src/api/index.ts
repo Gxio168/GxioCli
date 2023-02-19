@@ -3,6 +3,7 @@ import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ElMessage } from 'element-plus'
 
 import { getToken, removeToken } from '@/utils/token'
+import { showFullScreenLoading, tryHideFullScreenLoading } from '@/config/serviceLoading'
 import { AxiosCanceler } from './helper/axiosCancel'
 import { ResultEnum } from '@/types'
 import type { ResultData } from './interface'
@@ -24,6 +25,8 @@ class Request {
         const token = getToken()
         // 将当前请求添加至 pendingMap
         axiosCanceler.addPending(config)
+        // 如果请求头含有  noLoading, 则不显示 loading
+        config.headers?.noLoading || showFullScreenLoading()
         if (token) {
           config!.headers!.token = token
         }
@@ -36,8 +39,9 @@ class Request {
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => {
         const { data, config } = response
-        // 发送请求成功后移除出 pendingMap
+        // 发送请求成功后移除出 pendingMap, 并尝试关闭 loading
         axiosCanceler.removePending(config)
+        tryHideFullScreenLoading()
         if (data.statusCode && data.statusCode === ResultEnum.OVERDUE) {
           // 帐号登录失败
           ElMessage.error(data.message)

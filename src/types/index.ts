@@ -9,6 +9,19 @@ export type UserInfo = {
   password: string
 }
 
+export type FormHeader = Array<{
+  prop: string
+  label: string
+  type: string
+  placeholder?: string
+  startPlaceHolder?: string
+  endPlaceHolder?: string
+  children?: Array<{
+    label: string
+    value: any
+  }>
+}>
+
 /**
  * 合并类型
  * @example
