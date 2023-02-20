@@ -1,2 +1,3 @@
 import user from './user'
-export default [...user]
+import list from './list'
+export default [...user, ...list]

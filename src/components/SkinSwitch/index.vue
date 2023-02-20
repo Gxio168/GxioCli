@@ -85,6 +85,9 @@ const predefineColors = ref([
   margin-right: 15px;
   cursor: pointer;
 }
+:deep(.el-drawer) {
+  width: 300px !important;
+}
 .theme-contain {
   font-size: 12px;
   .title {

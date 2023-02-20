@@ -1,196 +1,142 @@
 <template>
-  <el-table
-    :data="tableData"
-    style="width: 100%"
-    max-height="300"
-    border
-    header-cell-class-name="table-head"
-    class="table"
-  >
-    <el-table-column fixed type="selection" width="80" />
-    <el-table-column type="index" label="#" show-overflow-tooltip align="center" width="80" />
-    <el-table-column prop="name" label="姓名" show-overflow-tooltip align="center" width="100" />
-    <el-table-column prop="sex" label="性别" show-overflow-tooltip align="center" width="100">
-      <template #default="{ row }"> {{ row.sex === 1 ? '男' : '女' }} </template>
-    </el-table-column>
-    <el-table-column prop="age" label="年龄" show-overflow-tooltip align="center" width="100" />
-    <el-table-column prop="id" label="身份证号" show-overflow-tooltip align="center" width="100" />
-    <el-table-column prop="email" label="邮箱" show-overflow-tooltip align="center" width="100" />
-    <el-table-column
-      prop="location"
-      label="居住地"
-      show-overflow-tooltip
-      align="center"
-      width="100"
-    />
-    <el-table-column
-      prop="status"
-      label="用户状态"
-      show-overflow-tooltip
-      align="center"
-      width="100"
+  <!-- table 表格 -->
+  <el-card style="margin-top: 10px">
+    <div class="table-head">
+      <el-button icon="plus" type="primary" @click="handleAddUser">新增用户</el-button>
+      <el-button icon="plus" type="primary" plain>批量添加用户</el-button>
+      <el-button icon="plus" type="primary" plain>导出用户信息</el-button>
+      <slot name="tableHead" />
+    </div>
+
+    <el-table
+      style="width: 100%"
+      class="table"
+      border
+      max-height="300"
+      :data="userList"
+      header-cell-class-name="table-head"
+      @selection-change="handleSelectChange"
     >
-      <template #default="{ row }">
-        <el-switch v-model="row.status" />
-        {{ row.status ? '启用' : '禁用' }}
+      <el-table-column fixed type="selection" align="center" width="50" />
+      <el-table-column type="index" label="#" show-overflow-tooltip align="center" width="80" />
+      <template v-for="item in config">
+        <el-table-column
+          :prop="item.prop"
+          :label="item.label"
+          width="100"
+          show-overflow-tooltip
+          align="center"
+        >
+          <template #default="{ row }" v-if="item.slotName">
+            <slot :name="item.slotName" :row="row"></slot>
+          </template>
+        </el-table-column>
       </template>
-    </el-table-column>
-    <el-table-column
-      prop="createTime"
-      label="创建时间"
-      show-overflow-tooltip
-      align="center"
-      width="180"
+      <el-table-column fixed="right" label="操作" min-width="280" align="center">
+        <template #default="{ row }">
+          <div style="display: flex; justify-content: space-evenly">
+            <el-button link icon="view" type="primary" @click="handleGetInfo(row)">
+              查看
+            </el-button>
+            <el-button link icon="edit" type="primary" @click="handleEditInfo(row)">
+              编辑
+            </el-button>
+            <el-button link icon="delete" type="primary" @click="handleDeleteInfo(row)">
+              删除
+            </el-button>
+          </div>
+        </template>
+      </el-table-column>
+    </el-table>
+    <!-- 底部 分页器 -->
+    <el-pagination
+      style="justify-content: flex-end; margin-top: 10px"
+      v-model:current-page="currentPage"
+      v-model:page-size="pageSize"
+      :page-sizes="[10, 20, 50, 100]"
+      background
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="2000"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
     />
-    <el-table-column fixed="right" label="Operations" width="280">
-      <template #default="scope">
-        <div style="display: flex; justify-content: space-evenly">
-          <el-button link icon="view" type="primary" size="small"> 查看 </el-button>
-          <el-button link icon="edit" type="primary" size="small"> 编辑 </el-button>
-          <el-button link icon="delete" type="primary" size="small"> 删除 </el-button>
-        </div>
-      </template>
-    </el-table-column>
-  </el-table>
-  <!-- 底部 分页器 -->
-  <el-pagination
-    style="justify-content: flex-end; margin-top: 10px"
-    v-model:current-page="currentPage4"
-    v-model:page-size="pageSize4"
-    :page-sizes="[10, 20, 50, 100]"
-    :small="small"
-    :disabled="disabled"
-    background
-    layout="total, sizes, prev, pager, next, jumper"
-    :total="2000"
-    @size-change="handleSizeChange"
-    @current-change="handleCurrentChange"
-  />
+  </el-card>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useListStore } from '@/stores/modules/list'
+import { infoDetail } from '@/components'
+import { getStaticData } from '../../helper'
 
-const currentPage4 = ref(4)
-const pageSize4 = ref(100)
-const small = ref(false)
-const disabled = ref(false)
+import type { FormTable } from '@/types'
 
-const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`)
+interface Props {
+  config: FormTable
+  url: string
 }
-const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`)
+
+const props = defineProps<Props>()
+const emit = defineEmits(['handleSelectChange'])
+
+const listStore = useListStore()
+const { userList } = storeToRefs(listStore)
+
+onMounted(async () => {
+  listStore.getInfoList(props.url)
+})
+
+// 分页器事件
+const currentPage = ref(1)
+const pageSize = ref(10)
+
+// size 改变触发
+const handleSizeChange = () => {
+  listStore.getInfoList(props.url, pageSize.value, (currentPage.value - 1) * pageSize.value)
 }
-const tableData = [
-  {
-    name: 'Ava',
-    sex: 0,
-    age: 18,
-    id: 3318292745892738,
-    email: '293921@qq.com',
-    location: '江西南昌',
-    status: true,
-    createTime: '2023-01-12 03:33:45'
-  },
-  {
-    name: 'Ava',
-    sex: 1,
-    age: 18,
-    id: 3318292745892738,
-    email: '293921@qq.com',
-    location: '江西南昌',
-    status: true,
-    createTime: '2023-01-12 03:33:45'
-  },
-  {
-    name: 'Ava',
-    sex: 1,
-    age: 18,
-    id: 3318292745892738,
-    email: '293921@qq.com',
-    location: '江西南昌',
-    status: true,
-    createTime: '2023-01-12 03:33:45'
-  },
-  {
-    name: 'Ava',
-    sex: 1,
-    age: 18,
-    id: 3318292745892738,
-    email: '293921@qq.com',
-    location: '江西南昌',
-    status: true,
-    createTime: '2023-01-12 03:33:45'
-  },
-  {
-    name: 'Ava',
-    sex: 1,
-    age: 18,
-    id: 3318292745892738,
-    email: '293921@qq.com',
-    location: '江西南昌',
-    status: true,
-    createTime: '2023-01-12 03:33:45'
-  },
-  {
-    name: 'Ava',
-    sex: 1,
-    age: 18,
-    id: 3318292745892738,
-    email: '293921@qq.com',
-    location: '江西南昌',
-    status: true,
-    createTime: '2023-01-12 03:33:45'
-  },
-  {
-    name: 'Ava',
-    sex: 1,
-    age: 18,
-    id: 3318292745892738,
-    email: '293921@qq.com',
-    location: '江西南昌',
-    status: true,
-    createTime: '2023-01-12 03:33:45'
-  },
-  {
-    name: 'Ava',
-    sex: 1,
-    age: 18,
-    id: 3318292745892738,
-    email: '293921@qq.com',
-    location: '江西南昌',
-    status: true,
-    createTime: '2023-01-12 03:33:45'
-  },
-  {
-    name: 'Ava',
-    sex: 1,
-    age: 18,
-    id: 3318292745892738,
-    email: '293921@qq.com',
-    location: '江西南昌',
-    status: true,
-    createTime: '2023-01-12 03:33:45'
-  },
-  {
-    name: 'Ava',
-    sex: 1,
-    age: 18,
-    id: 3318292745892738,
-    email: '293921@qq.com',
-    location: '江西南昌',
-    status: true,
-    createTime: '2023-01-12 03:33:45'
-  }
-]
+// curPage 改变触发
+const handleCurrentChange = () => {
+  listStore.getInfoList(props.url, pageSize.value, (currentPage.value - 1) * pageSize.value)
+}
+
+// 表单选择事件
+const handleSelectChange = (val: any) => {
+  emit('handleSelectChange', val)
+}
+
+// 新增用户
+const handleAddUser = () => {
+  infoDetail('add', props.config, getStaticData(props.config)).then(
+    res => {
+      // console.log(res)
+    },
+    err => {
+      // console.log(err)
+    }
+  )
+}
+
+// 获取表单一行的具体内容
+const handleGetInfo = (row: any) => {
+  infoDetail('get', props.config, row)
+}
+
+// 编辑信息
+const handleEditInfo = (row: any) => {
+  infoDetail('edit', props.config, row)
+}
+
+// 删除一行中的内容
+const handleDeleteInfo = (row: any) => {}
 </script>
 <style scoped lang="scss">
+.table-head {
+  margin-bottom: 10px;
+}
 :deep(.el-scrollbar__view) {
   padding: 0;
-}
-.table {
-  text-align: center;
+  margin: none;
 }
 
 :deep(.table-head .cell) {

@@ -1,6 +1,8 @@
 import type { App } from 'vue'
 import { defineAsyncComponent } from 'vue'
 
+export { infoDetail } from './infoDetail'
+
 export async function registerComponent(app: App<Element>) {
   const components = import.meta.glob('./*/index.vue')
   for (let componentName in components) {

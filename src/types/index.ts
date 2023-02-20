@@ -22,6 +22,16 @@ export type FormHeader = Array<{
   }>
 }>
 
+export type FormTable = Array<{
+  label: string
+  prop: string
+  type?: string
+  fixed?: string | boolean
+  slotName?: string
+  canModify?: boolean
+  children?: Array<any>
+}>
+
 /**
  * 合并类型
  * @example

@@ -69,7 +69,8 @@
 <script lang="ts"></script>
 <script setup lang="ts">
 import { ref, onBeforeUnmount, watch, toRaw } from 'vue'
-import { getStaticData, showLineNum, getblankCol } from './helper'
+import { getStaticData } from '../../helper'
+import { showLineNum, getblankCol } from './helper'
 import { useWindowWidth } from '@/hooks/useWindowWidth'
 
 import type { FormHeader } from '@/types'
@@ -113,7 +114,7 @@ const staticData = getStaticData(props.config)
 const formData = ref(staticData)
 
 // 判断当前是否进行折叠
-const isCollapes = ref(false)
+const isCollapes = ref(true)
 // 能否折叠
 const canCollapes = configLen > 2
 
