@@ -16,6 +16,7 @@
     <!-- 表单部分 -->
     <content-form-vue
       @handle-select-change="handleSeelctChange"
+      @handle-page-size-change="handlePageSizeChange"
       :config="tableConfig"
       url="userList"
     >
@@ -55,12 +56,19 @@ import { searchConfig, tableConfig } from './config'
 
 const listStore = useListStore()
 
+const curPage = ref(10)
 // 表头搜索事件
 const handleSearch = (formData: any) => {
+  listStore.putInfoList('userList', curPage.value, formData)
   ElMessage({
     type: 'success',
     message: formData
   })
+}
+
+// 获取当前一页显示的个数,方便发送请求
+const handlePageSizeChange = (size: number) => {
+  curPage.value = size
 }
 
 // 表头重置事件

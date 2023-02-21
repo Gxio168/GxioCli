@@ -28,6 +28,32 @@ export default [
   },
   {
     url: '/api/list/userList',
+    method: 'put',
+    response: config => {
+      const { name, gender, age, id, status, createTime } = config.body
+      const { page } = config.query
+      return {
+        statusCode: 200,
+        data: mock({
+          [`result|${page}`]: [
+            {
+              name: name || '@cname()',
+              [`sex|${gender !== undefined ? gender : '0-1'}`]: 0,
+              [`age|${age || '16-45'}`]: 0,
+              id: id || '@id()',
+              email: '@email()',
+              [`status|${status ? 0 : 0 || '1-2'}`]: !status,
+              location: '@city()',
+              createTime: createTime || '@datetime(yyyy-MM-dd HH:mm:ss)'
+            }
+          ]
+        }).result,
+        message: 'ok'
+      }
+    }
+  },
+  {
+    url: '/api/list/userList',
     method: 'post',
     response: config => {
       return {

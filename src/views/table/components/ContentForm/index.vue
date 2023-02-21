@@ -78,7 +78,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const emit = defineEmits(['handleSelectChange'])
+const emit = defineEmits(['handleSelectChange', 'handlePageSizeChange'])
 
 const listStore = useListStore()
 const { userList } = storeToRefs(listStore)
@@ -93,6 +93,7 @@ const pageSize = ref(10)
 
 // size 改变触发
 const handleSizeChange = () => {
+  emit('handlePageSizeChange', pageSize.value)
   listStore.getInfoList(props.url, pageSize.value, (currentPage.value - 1) * pageSize.value)
 }
 // curPage 改变触发
@@ -108,27 +109,36 @@ const handleSelectChange = (val: any) => {
 // 新增用户
 const handleAddUser = () => {
   infoDetail('add', props.config, getStaticData(props.config)).then(
-    res => {
-      // console.log(res)
+    (res: any) => {
+      listStore.updateInfoList(props.url, res.value)
     },
-    err => {
-      // console.log(err)
-    }
+    err => {}
   )
 }
 
 // 获取表单一行的具体内容
 const handleGetInfo = (row: any) => {
-  infoDetail('get', props.config, row)
+  // 无需其他操作
+  infoDetail('get', props.config, row).then(
+    res => {},
+    err => {}
+  )
 }
 
 // 编辑信息
 const handleEditInfo = (row: any) => {
-  infoDetail('edit', props.config, row)
+  infoDetail('edit', props.config, row).then(
+    (res: any) => {
+      listStore.updateInfoList(props.url, res.value)
+    },
+    err => {}
+  )
 }
 
 // 删除一行中的内容
-const handleDeleteInfo = (row: any) => {}
+const handleDeleteInfo = (row: any) => {
+  listStore.deleteInfoList(props.url, [row.id])
+}
 </script>
 <style scoped lang="scss">
 .table-head {
