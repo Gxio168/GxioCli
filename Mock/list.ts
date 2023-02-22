@@ -38,7 +38,7 @@ export default [
           [`result|${page}`]: [
             {
               name: name || '@cname()',
-              [`sex|${gender !== undefined ? gender : '0-1'}`]: 0,
+              [`sex|${gender !== '' ? gender : '0-1'}`]: 0,
               [`age|${age || '16-45'}`]: 0,
               id: id || '@id()',
               email: '@email()',

@@ -1,1 +1,0 @@
-import{aw as t,aT as n,q as o,t as a,x as c,as as s}from"./index.729ec0c4.js";const r={};function _(p,l){const e=n("page-content-vue");return o(),a(e,null,{title:c(()=>[s("\u7528\u6237\u754C\u9762 \u{1F353}\u{1F347}\u{1F350}\u{1F349}")]),_:1})}const f=t(r,[["render",_]]);export{f as default};

@@ -3,7 +3,8 @@
     <template #default>
       <el-scrollbar height="100%">
         <hr style="border-color: #ebeef5; margin-bottom: 10px" />
-        <el-form class="form">
+        <el-form class="form" :model="configItems" :rules="rules" ref="ruleFormRef">
+          <!-- 用户头像 -->
           <el-form-item label="用户头像:" label-width="100px">
             <avator-vue
               :image="type === 'add' ? undefined : imgInfo"
@@ -13,12 +14,19 @@
               <template #tip> 头像大小不能超过 3M </template>
             </avator-vue>
           </el-form-item>
+          <!-- 用户照片 -->
           <el-form-item label="用户照片:" label-width="100px">
             <avator-vue borderRadius="8px" :disabled="disable">
               <template #tip> 照片大小不能超过 5M </template>
             </avator-vue>
           </el-form-item>
-          <el-form-item :label="item.label + ':'" label-width="100px" v-for="item in templateList">
+          <!-- 用户传入配置 -->
+          <el-form-item
+            :label="item.label + ':'"
+            label-width="100px"
+            v-for="item in templateList"
+            :prop="item.prop"
+          >
             <template v-if="item.type === 'input'">
               <el-input v-model="configItems[item.prop]" :disabled="disable" />
             </template>
@@ -43,7 +51,9 @@
     <template #footer>
       <div class="footer">
         <el-button @click="cancelClick">取消</el-button>
-        <el-button type="primary" @click="confirmClick" v-if="!disable">确定</el-button>
+        <el-button type="primary" @click="confirmClick(ruleFormRef)" v-if="!disable"
+          >确定</el-button
+        >
       </div>
     </template>
   </el-drawer>
@@ -55,19 +65,22 @@ const imgInfo = {
 }
 </script>
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
+import type { FormRules, FormInstance } from 'element-plus'
 import avatorVue from '../Avator/index.vue'
 
 interface Props {
-  type: string
-  config: any
-  template: any
-  close: any
+  type: string // 当前打开模板的类型
+  config: any // ===> 传入的信息
+  template: any // ===> 模板
+  close: any //  ===> 关闭侧边栏出发的事件
+  rules?: FormRules // ====> 传入的 rule 验证规则
   confirmHandler: any
   cancelHandler: any
 }
 
 const props = defineProps<Props>()
+const rules = reactive<FormRules>(props.rules as FormRules)
 const drawer = ref(true)
 const configItems = ref({}) as any
 for (const key in props.config) {
@@ -102,13 +115,22 @@ const cancelClick = () => {
   }, 200)
 }
 
+// 表单实例
+const ruleFormRef = ref<FormInstance>()
 // 确定按钮
-const confirmClick = () => {
-  props.confirmHandler(configItems)
-  drawer.value = false
-  setTimeout(() => {
-    props.close()
-  }, 200)
+const confirmClick = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  await formEl.validate((valid, fields) => {
+    if (valid) {
+      props.confirmHandler(configItems)
+      drawer.value = false
+      setTimeout(() => {
+        props.close()
+      }, 200)
+    } else {
+      console.log('error submit!', fields)
+    }
+  })
 }
 // 关闭页面
 const closePage = () => {

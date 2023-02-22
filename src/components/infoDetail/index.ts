@@ -1,8 +1,17 @@
 import { h, render } from 'vue'
+import type { FormRules } from 'element-plus'
 
 import infoDetailCom from './index.vue'
 
-export const infoDetail = (type: string, template: any, config: any) => {
+/**
+ *
+ * @param type get | add | update
+ * @param template 展示模板和 v-model 内容
+ * @param config  传入的数值
+ * @param rules   传入的校验规则
+ * @returns
+ */
+export const infoDetail = (type: string, template: any, config: any, rules?: FormRules) => {
   return new Promise((resolve, reject) => {
     const destroyed = () => {
       render(null, document.body)
@@ -17,6 +26,7 @@ export const infoDetail = (type: string, template: any, config: any) => {
       type,
       config,
       template,
+      rules,
       close: destroyed,
       cancelHandler,
       confirmHandler

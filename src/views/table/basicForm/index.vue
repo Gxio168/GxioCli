@@ -4,7 +4,7 @@
     <template v-for="item in searchConfig">
       <el-tag type="success" size="large">{{ item }} </el-tag> <br />
     </template>
-    <search-form-vue
+    <form-search-vue
       :config="searchConfig"
       @handle-search="handleSearch"
       @handle-reset="handleReset"
@@ -14,10 +14,11 @@
       <el-tag type="success" size="large">{{ item }} </el-tag> <br />
     </template>
     <!-- 表单部分 -->
-    <content-form-vue
+    <form-content-vue
       @handle-select-change="handleSeelctChange"
       @handle-page-size-change="handlePageSizeChange"
       :config="tableConfig"
+      :rules="rules"
       url="userList"
     >
       <!-- 自定义传递内容 -->
@@ -41,18 +42,16 @@
       <template #status="{ row }">
         <el-tag class="ml-2">{{ row.status ? '启用' : '禁用' }}</el-tag>
       </template>
-    </content-form-vue>
+    </form-content-vue>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import searchFormVue from '../components/SearchForm/index.vue'
-import contentFormVue from '../components/ContentForm/index.vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useListStore } from '@/stores/modules/list'
 
-import { searchConfig, tableConfig } from './config'
+import { searchConfig, tableConfig, rules } from './config'
 
 const listStore = useListStore()
 
