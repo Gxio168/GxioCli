@@ -27,6 +27,7 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
         `
       }),
       AutoImport({
+        imports: ['vue', 'vue-router', 'pinia'],
         resolvers: [ElementPlusResolver()]
       }),
       Components({

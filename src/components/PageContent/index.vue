@@ -1,6 +1,8 @@
 <template>
   <el-card class="page-content">
-    <div class="title"><slot name="title"></slot></div>
+    <div class="title">
+      <slot name="title"></slot>
+    </div>
     <slot name="content"></slot>
   </el-card>
 </template>
@@ -11,6 +13,7 @@
   width: 100%;
   height: 100%;
   display: inline-block;
+
   .title {
     font-size: 24px;
     font-weight: bold;

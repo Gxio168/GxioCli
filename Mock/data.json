@@ -99,6 +99,26 @@
               }
             }
           ]
+        },
+        {
+          "path": "/assembly",
+          "redirect": "/assembly/uploadimg",
+          "name": "Assembly",
+          "meta": {
+            "title": "常用组件",
+            "icon": "TakeawayBox"
+          },
+          "children": [
+            {
+              "path": "/assembly/uploadimg",
+              "name": "UploadImg",
+              "component": "/assembly/uploadImg",
+              "meta": {
+                "title": "图片上传",
+                "icon": "tools"
+              }
+            }
+          ]
         }
       ],
       "btnControl": [
