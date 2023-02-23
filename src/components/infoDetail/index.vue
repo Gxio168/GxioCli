@@ -5,20 +5,23 @@
         <hr style="border-color: #ebeef5; margin-bottom: 10px" />
         <el-form class="form" :model="configItems" :rules="rules" ref="ruleFormRef">
           <!-- 用户头像 -->
-          <el-form-item label="用户头像:" label-width="100px">
-            <avator-vue
-              :image="type === 'add' ? undefined : imgInfo"
-              borderRadius="50%"
-              :disabled="disable"
-            >
+          <el-form-item label="用户头像:" label-width="100px" required>
+            <avatar-vue id="upload1" :disabled="disabled" type="avatar" url="/api/upload">
               <template #tip> 头像大小不能超过 3M </template>
-            </avator-vue>
+            </avatar-vue>
           </el-form-item>
           <!-- 用户照片 -->
           <el-form-item label="用户照片:" label-width="100px">
-            <avator-vue borderRadius="8px" :disabled="disable">
+            <avatar-vue
+              id="upload2"
+              :disabled="disabled"
+              type="picture"
+              :limitNums="5"
+              url="/api/upload"
+              :isRadius="false"
+            >
               <template #tip> 照片大小不能超过 5M </template>
-            </avator-vue>
+            </avatar-vue>
           </el-form-item>
           <!-- 用户传入配置 -->
           <el-form-item
@@ -28,11 +31,11 @@
             :prop="item.prop"
           >
             <template v-if="item.type === 'input'">
-              <el-input v-model="configItems[item.prop]" :disabled="disable" />
+              <el-input v-model="configItems[item.prop]" :disabled="disabled" />
             </template>
             <template v-else-if="item.type === 'select'">
               <el-select
-                :disabled="disable"
+                :disabled="disabled"
                 :placeholder="`请选择${item.label}`"
                 style="width: 100%"
                 v-model="configItems[item.prop]"
@@ -51,23 +54,16 @@
     <template #footer>
       <div class="footer">
         <el-button @click="cancelClick">取消</el-button>
-        <el-button type="primary" @click="confirmClick(ruleFormRef)" v-if="!disable"
+        <el-button type="primary" @click="confirmClick(ruleFormRef)" v-if="!disabled"
           >确定</el-button
         >
       </div>
     </template>
   </el-drawer>
 </template>
-<script lang="ts">
-const imgInfo = {
-  name: 'demo',
-  url: 'https://i.imgtg.com/2023/01/16/QR57a.jpg'
-}
-</script>
 <script lang="ts" setup>
-import { ref, computed, reactive } from 'vue'
 import type { FormRules, FormInstance } from 'element-plus'
-import avatorVue from '../Avator/index.vue'
+import avatarVue from '../UploadImg/index.vue'
 
 interface Props {
   type: string // 当前打开模板的类型
@@ -100,7 +96,7 @@ const title = computed(() => {
 })
 
 // 是否可以修改值
-const disable = computed(() => props.type === 'get')
+const disabled = computed(() => props.type === 'get')
 
 const templateList = props.template.filter(
   (item: any) => item.canModify === undefined || item.canModify === true

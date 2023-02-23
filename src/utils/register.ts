@@ -3,6 +3,8 @@ import 'element-plus/theme-chalk/el-loading.css'
 import 'element-plus/theme-chalk/el-notification.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import 'element-plus/theme-chalk/el-message-box.css'
+import 'element-plus/theme-chalk/el-descriptions.css'
+import 'element-plus/theme-chalk/el-descriptions-item.css'
 
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import type { App } from 'vue'
