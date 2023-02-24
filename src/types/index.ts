@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'vue'
+
 export enum ResultEnum {
   SUCCESS = 200,
   TIMEOUT = 5000,
@@ -23,14 +25,30 @@ export type FormHeader = Array<{
 }>
 
 export type FormTable = Array<{
-  label: string
-  prop: string
-  type?: string
-  fixed?: string | boolean
-  slotName?: string
-  canModify?: boolean
-  children?: Array<any>
+  label: string // ===> 展示名称
+  prop: string //  ===> 上传时候的属性名
+  type?: 'input' | 'avatar' | 'photo' | 'select' // ====> lable 显示格式
+  fixed?: string | boolean // ===> 是否是左右固定 table 栏
+  slotName?: string // ===> 自定义 slot 插槽内容的插槽名
+  canModify?: boolean // ===> 是否出现在 可修改栏中
+  children?: Array<any> // ===> type: select 时的配置
+  isHide?: boolean // ===> 是否显示在 table 栏中
+  config?: Partial<Avatar>
 }>
+
+interface Avatar {
+  drag: boolean
+  disabled: boolean
+  id: string
+  isRadius: boolean
+  limitSize: number
+  limitNums: number
+  type: 'avatar' | 'picture'
+  uploadStyle: CSSProperties
+  url: string
+  imageProps: string
+  tip: string
+}
 
 /**
  * 合并类型

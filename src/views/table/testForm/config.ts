@@ -36,6 +36,36 @@ export const searchConfig: FormHeader = [
 // 表单内容
 export const tableConfig: FormTable = [
   {
+    type: 'avatar',
+    label: '用户头像',
+    prop: 'userAvatar',
+    isHide: true,
+    config: {
+      id: 'upload1',
+      type: 'avatar',
+      url: '/api/upload',
+      imageProps: 'userAvatar',
+      limitSize: 3 * 1024 * 1024,
+      tip: '头像大小不能超过 3M'
+    }
+  },
+  {
+    type: 'photo',
+    label: '用户照片',
+    prop: 'userPhoto',
+    isHide: true,
+    config: {
+      id: 'upload2',
+      type: 'picture',
+      limitNums: 5,
+      limitSize: 5 * 1024 * 1024,
+      url: '/api/upload',
+      imageProps: 'userPhoto',
+      isRadius: false,
+      tip: '照片大小不能超过 5M'
+    }
+  },
+  {
     type: 'input',
     label: '姓名',
     prop: 'name'
@@ -90,5 +120,6 @@ export const rules: FormRules = {
   age: { required: true, message: '请输入年龄', trigger: 'blur' },
   id: { required: true, message: '请输入身份证号', trigger: 'blur' },
   email: { required: true, message: '请输入邮箱', trigger: 'blur' },
-  location: { required: true, message: '请输入地址', trigger: 'blur' }
+  location: { required: true, message: '请输入地址', trigger: 'blur' },
+  userAvatar: { required: true, message: '请上传头像', trigger: 'blur' }
 }

@@ -18,7 +18,9 @@ export default [
               email: '@email()',
               'status|1-2': true,
               location: '@city()',
-              createTime: '@datetime(yyyy-MM-dd HH:mm:ss)'
+              createTime: '@datetime(yyyy-MM-dd HH:mm:ss)',
+              userAvatar: 'https://i.imgtg.com/2023/01/16/QR57a.jpg',
+              'userPhoto|0-3': ['https://i.imgtg.com/2023/01/16/QR57a.jpg']
             }
           ]
         }).result,
@@ -44,7 +46,9 @@ export default [
               email: '@email()',
               [`status|${status ? 0 : 0 || '1-2'}`]: !status,
               location: '@city()',
-              createTime: createTime || '@datetime(yyyy-MM-dd HH:mm:ss)'
+              createTime: createTime || '@datetime(yyyy-MM-dd HH:mm:ss)',
+              userAvatar: 'https://i.imgtg.com/2023/01/16/QR57a.jpg',
+              userPhoto: 'https://i.imgtg.com/2023/01/16/QR57a.jpg'
             }
           ]
         }).result,
@@ -68,7 +72,9 @@ export default [
               email: '@email()',
               'status|1-2': true,
               location: '@city()',
-              createTime: '@datetime(yyyy-MM-dd HH:mm:ss)'
+              createTime: '@datetime(yyyy-MM-dd HH:mm:ss)',
+              userAvatar: 'https://i.imgtg.com/2023/01/16/QR57a.jpg',
+              userPhoto: 'https://i.imgtg.com/2023/01/16/QR57a.jpg'
             }
           ]
         }).result,
@@ -92,7 +98,9 @@ export default [
               email: '@email()',
               'status|1-2': true,
               location: '@city()',
-              createTime: '@datetime(yyyy-MM-dd HH:mm:ss)'
+              createTime: '@datetime(yyyy-MM-dd HH:mm:ss)',
+              userAvatar: 'https://i.imgtg.com/2023/01/16/QR57a.jpg',
+              userPhoto: 'https://i.imgtg.com/2023/01/16/QR57a.jpg'
             }
           ]
         }).result,

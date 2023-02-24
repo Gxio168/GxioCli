@@ -1,3 +1,11 @@
+<script setup lang="ts">
+type Props = {
+  isVisible: boolean
+}
+defineProps<Props>()
+defineEmits(['update:isVisible'])
+</script>
+
 <template>
   <div class="card">
     <transition name="fade">
@@ -10,14 +18,6 @@
     </transition>
   </div>
 </template>
-
-<script setup lang="ts">
-type Props = {
-  isVisible: boolean
-}
-defineProps<Props>()
-defineEmits(['update:isVisible'])
-</script>
 <style scoped lang="scss">
 .mask {
   position: fixed;

@@ -12,15 +12,21 @@ const config = [
     text: "输入框的样式 default:  () => ({ width: '140px', height: '140px' })"
   }
 ]
+
+const uploadRef = ref()
+const upload = () => {
+  uploadRef.value.handleUpload()
+}
 </script>
 <template>
   <Page-content-vue>
     <template #title> 多图片上传 🍓🍇🍐🍉 </template>
     <template #content>
+      <el-button @click="upload">Click</el-button>
       <div class="upload">
         <div class="item">
           <span class="title">单文件上传</span>
-          <upload-img-vue id="upload3" type="avatar" url="/api/upload" />
+          <upload-img-vue ref="uploadRef" id="upload3" type="avatar" url="/api/upload" />
         </div>
         <div class="item">
           <span class="title">多文件上传</span>

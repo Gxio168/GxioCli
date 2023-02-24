@@ -21,6 +21,7 @@
       <el-table-column type="index" label="#" show-overflow-tooltip align="center" width="80" />
       <template v-for="item in config">
         <el-table-column
+          v-if="!item.isHide"
           :prop="item.prop"
           :label="item.label"
           :width="columnWidth"

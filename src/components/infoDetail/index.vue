@@ -4,25 +4,6 @@
       <el-scrollbar height="100%">
         <hr style="border-color: #ebeef5; margin-bottom: 10px" />
         <el-form class="form" :model="configItems" :rules="rules" ref="ruleFormRef">
-          <!-- 用户头像 -->
-          <el-form-item label="用户头像:" label-width="100px" required>
-            <avatar-vue id="upload1" :disabled="disabled" type="avatar" url="/api/upload">
-              <template #tip> 头像大小不能超过 3M </template>
-            </avatar-vue>
-          </el-form-item>
-          <!-- 用户照片 -->
-          <el-form-item label="用户照片:" label-width="100px">
-            <avatar-vue
-              id="upload2"
-              :disabled="disabled"
-              type="picture"
-              :limitNums="5"
-              url="/api/upload"
-              :isRadius="false"
-            >
-              <template #tip> 照片大小不能超过 5M </template>
-            </avatar-vue>
-          </el-form-item>
           <!-- 用户传入配置 -->
           <el-form-item
             :label="item.label + ':'"
@@ -30,9 +11,11 @@
             v-for="item in templateList"
             :prop="item.prop"
           >
+            <!-- 输入框 -->
             <template v-if="item.type === 'input'">
               <el-input v-model="configItems[item.prop]" :disabled="disabled" />
             </template>
+            <!-- 选择框 -->
             <template v-else-if="item.type === 'select'">
               <el-select
                 :disabled="disabled"
@@ -46,6 +29,28 @@
                   :value="option.value"
                 />
               </el-select>
+            </template>
+            <template v-else-if="item.type === 'avatar'">
+              <avatar-vue
+                ref="avatarRef"
+                v-bind="item.config"
+                :disabled="disabled"
+                :image-url="config[item.config.imageProps]"
+                v-model="configItems[item.prop]"
+              >
+                <template #tip> {{ item.config.tip }} </template>
+              </avatar-vue>
+            </template>
+            <template v-else-if="item.type === 'photo'">
+              <avatar-vue
+                ref="photoRef"
+                v-bind="item.config"
+                :disabled="disabled"
+                :image-url="config[item.config.imageProps]"
+                v-model="configItems[item.prop]"
+              >
+                <template #tip> {{ item.config.tip }} </template>
+              </avatar-vue>
             </template>
           </el-form-item>
         </el-form>
@@ -76,6 +81,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+console.log(props.rules)
 const rules = reactive<FormRules>(props.rules as FormRules)
 const drawer = ref(true)
 const configItems = ref({}) as any
@@ -111,20 +117,23 @@ const cancelClick = () => {
   }, 200)
 }
 
-// 表单实例
+// 表单实例  头像实例  图片实例
 const ruleFormRef = ref<FormInstance>()
+const avatarRef = ref(null) as any
+const photoRef = ref(null) as any
 // 确定按钮
 const confirmClick = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate((valid, fields) => {
     if (valid) {
       props.confirmHandler(configItems)
+      // 上传图片
+      avatarRef.value.length && avatarRef.value[0].handleUpload()
+      photoRef.value.length && photoRef.value[0].handleUpload()
       drawer.value = false
       setTimeout(() => {
         props.close()
       }, 200)
-    } else {
-      console.log('error submit!', fields)
     }
   })
 }

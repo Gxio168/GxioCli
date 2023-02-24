@@ -2,6 +2,7 @@
 import { ZoomIn, Delete, Edit, Avatar, Picture } from '@element-plus/icons-vue'
 import type { UploadUserFile, UploadFile, UploadFiles } from 'element-plus'
 import { ElNotification } from 'element-plus'
+import { stringToArray } from '@/utils/transformType'
 import type { Ref, CSSProperties } from 'vue'
 
 interface IProps {
@@ -13,6 +14,9 @@ interface IProps {
   limitSize?: number // ===>  限制图片的大小
   limitNums?: number // ===> 限制上传的数量
   uploadStyle?: CSSProperties
+  url?: string //  ===> 上传地址
+  imageUrl: string | Array<string> //  默认图片地址
+  modelValue: string
 }
 const props = withDefaults(defineProps<IProps>(), {
   drag: false,
@@ -24,41 +28,60 @@ const props = withDefaults(defineProps<IProps>(), {
   uploadStyle: () => ({ width: '140px', height: '140px' })
 })
 
-// 图片资源列表
-const fileList: Ref<UploadUserFile[]> = ref([
-  {
-    name: 'food.jpeg',
-    url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+// 转换图片资源为图片数组
+const transformUrl = (imageUrl: string | Array<string>) => {
+  if (imageUrl === '') return []
+  if (typeof imageUrl === 'string') {
+    return stringToArray(imageUrl).map(item => ({
+      name: `text_${Date.now()}`,
+      url: item
+    }))
+  } else {
+    return imageUrl.map(item => ({
+      name: `text_${Date.now()}`,
+      url: item
+    }))
   }
-])
+}
+
+// 双向绑定的传递参数
+const emit = defineEmits(['update:modelValue'])
+
+// 图片资源列表
+const fileList: Ref<UploadUserFile[]> = ref(transformUrl(props.imageUrl))
+
+// 实现图片数据的双向绑定
+watch(
+  () => fileList.value,
+  newVal => {
+    emit('update:modelValue', newVal)
+  },
+  {
+    deep: true
+  }
+)
 
 // 样式配置
-const tipStr = computed(() => (props.type === 'avatar' ? '请上传头像' : '请上传图片'))
-const border = computed(() => (props.isRadius ? '50%' : '8px'))
-const canUpload = computed(() => (fileList.value.length === props.limitNums ? 'none' : 'flex'))
+const tipStr = props.type === 'avatar' ? '请上传头像' : '请上传图片'
+const border = props.isRadius ? '50%' : '8px'
 const urlList = ref([]) as any
-const disabledStyle = computed(() =>
-  props.disabled
-    ? {
-        cursor: 'no-drop',
-        borderColor: 'var(--el-border-color-darker)'
-      }
-    : {
-        cursor: 'pointer',
-        borderColor: 'var(--el-color-primary);'
-      }
-)
+const canUpload = computed(() => (fileList.value.length === props.limitNums ? 'none' : 'flex'))
+const disabledStyle = props.disabled
+  ? {
+      cursor: 'no-drop',
+      borderColor: 'var(--el-border-color-darker)'
+    }
+  : {
+      cursor: 'pointer',
+      borderColor: 'var(--el-color-primary);'
+    }
 
 const uploadRef = ref()
 
-/**
- * @description 文件上传前的校验，比如文件大下，类型等
- */
+//文件上传前的校验，比如文件大下，类型等
 const handleBeforeUpload = () => {}
 
-/**
- * @description 上传图片前的校验
- */
+// 上传图片前的校验
 const handleImgNumberChange = (uploadFile: UploadFile, uploadFiles: UploadFiles) => {
   if (uploadFiles.length > props.limitNums) {
     uploadFiles.shift()
@@ -78,12 +101,9 @@ const handleImgNumberChange = (uploadFile: UploadFile, uploadFiles: UploadFiles)
       message: '图片上传成功!'
     })
   }
-  // 替换图片
 }
 
-/**
- * @description 控制图片资源的替换操作
- */
+// 控制图片资源的替换操作
 const handleEditImg = () => {
   const dom = document.querySelector(`#${props.id} .el-upload__input`) as HTMLInputElement
   dom.dispatchEvent(new MouseEvent('click'))
@@ -93,26 +113,27 @@ const dialogVisible = ref(false)
 const imageView = () => {
   dialogVisible.value = !dialogVisible.value
 }
-/**
- * @description 控制图片资源的预览
- */
+//  控制图片资源的预览
 const handlePreviewImg = (file: any) => {
   urlList.value = [file.url]
   imageView()
 }
 
-/**
- * @description 控制图片资源的删除
- */
+// 控制图片资源的删除
 const handleDeleteImg = (file: any) => {
   const idx = fileList.value.findIndex(item => item.uid === file.uid)
   fileList.value.splice(idx, 1)
 }
 
+// 上传事件
+const handleUpload = () => {
+  uploadRef.value.submit()
+}
+
 // 导出提交函数
 // 交由用户决定怎么提交
 defineExpose({
-  upload: uploadRef.value
+  handleUpload
 })
 </script>
 <template>
@@ -120,6 +141,7 @@ defineExpose({
     <el-upload
       ref="uploadRef"
       accept="image/jpg,image/png,image/jpeg,image/gif"
+      :action="url"
       list-type="picture-card"
       :auto-upload="false"
       :drag="drag"
@@ -177,13 +199,16 @@ defineExpose({
     display: flex !important;
   }
 }
-
+:global(.is-error .el-upload--picture-card) {
+  box-shadow: 0 0 0 1px var(--el-color-danger) inset;
+}
 :deep(.el-upload--picture-card) {
   border-radius: v-bind(border);
   display: v-bind(canUpload);
   width: v-bind('uploadStyle.width');
   height: v-bind('uploadStyle.height');
   cursor: v-bind('disabledStyle.cursor');
+  transition: all 0.5s;
   &:hover {
     border-color: v-bind('disabledStyle.borderColor');
   }
