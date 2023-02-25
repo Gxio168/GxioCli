@@ -11,7 +11,7 @@
 <style scoped lang="scss">
 .page-content {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   display: inline-block;
 
   .title {
