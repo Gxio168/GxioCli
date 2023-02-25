@@ -117,6 +117,15 @@
                 "title": "图片上传",
                 "icon": "tools"
               }
+            },
+            {
+              "path": "/assembly/guide",
+              "name": "Guide",
+              "component": "/assembly/guide",
+              "meta": {
+                "title": "引导页",
+                "icon": "tools"
+              }
             }
           ]
         }

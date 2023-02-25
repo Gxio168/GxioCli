@@ -16,7 +16,7 @@ interface IProps {
   uploadStyle?: CSSProperties
   url?: string //  ===> 上传地址
   imageUrl: string | Array<string> //  默认图片地址
-  modelValue: string
+  modelValue: string //  ===>  双向绑定 value
 }
 const props = withDefaults(defineProps<IProps>(), {
   drag: false,
@@ -46,7 +46,7 @@ const transformUrl = (imageUrl: string | Array<string>) => {
 
 // 双向绑定的传递参数
 const emit = defineEmits(['update:modelValue'])
-
+console.log(props);
 // 图片资源列表
 const fileList: Ref<UploadUserFile[]> = ref(transformUrl(props.imageUrl))
 
@@ -60,6 +60,7 @@ watch(
     deep: true
   }
 )
+
 
 // 样式配置
 const tipStr = props.type === 'avatar' ? '请上传头像' : '请上传图片'

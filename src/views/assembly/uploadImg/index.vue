@@ -26,7 +26,13 @@ const upload = () => {
       <div class="upload">
         <div class="item">
           <span class="title">单文件上传</span>
-          <upload-img-vue ref="uploadRef" id="upload3" type="avatar" url="/api/upload" />
+          <upload-img-vue
+            ref="uploadRef"
+            id="upload3"
+            type="avatar"
+            url="/api/upload"
+            image-url="https://i.imgtg.com/2023/01/16/QR57a.jpg"
+          />
         </div>
         <div class="item">
           <span class="title">多文件上传</span>
@@ -37,11 +43,19 @@ const upload = () => {
             :limitNums="5"
             :isRadius="false"
             :drag="true"
+            :image-url="[]"
           />
         </div>
         <div class="item">
           <span class="title">禁止上传</span>
-          <upload-img-vue id="upload4" type="avatar" url="/api/upload" disabled :limitNums="2" />
+          <upload-img-vue
+            id="upload4"
+            type="avatar"
+            url="/api/upload"
+            disabled
+            :limitNums="2"
+            image-url="https://i.imgtg.com/2023/01/16/QR57a.jpg"
+          />
         </div>
       </div>
       <div class="descriptor">
