@@ -97,7 +97,10 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
             }, 1000)
           }
         })
-        .catch(err => {})
+        .catch(err => {
+          // 登陆失败也需要取消 Loading 状态
+          isLoading.value = false
+        })
     }
   })
 }

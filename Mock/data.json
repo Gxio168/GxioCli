@@ -110,20 +110,29 @@
           },
           "children": [
             {
-              "path": "/assembly/uploadimg",
-              "name": "UploadImg",
-              "component": "/assembly/uploadImg",
-              "meta": {
-                "title": "图片上传",
-                "icon": "tools"
-              }
-            },
-            {
               "path": "/assembly/guide",
               "name": "Guide",
               "component": "/assembly/guide",
               "meta": {
                 "title": "引导页",
+                "icon": "tools"
+              }
+            },
+            {
+              "path": "/assembly/selectFilter",
+              "name": "SelectFilter",
+              "component": "/assembly/selectFilter",
+              "meta": {
+                "title": "分类筛选器",
+                "icon": "tools"
+              }
+            },
+            {
+              "path": "/assembly/uploadimg",
+              "name": "UploadImg",
+              "component": "/assembly/uploadImg",
+              "meta": {
+                "title": "图片上传",
                 "icon": "tools"
               }
             }
