@@ -137,6 +137,62 @@
               }
             }
           ]
+        },
+        {
+          "path": "/directives",
+          "redirect": "/directives/copyDirect",
+          "name": "Directive",
+          "meta": {
+            "title": "自定义指令",
+            "icon": "Stamp"
+          },
+          "children": [
+            {
+              "path": "/directives/copyDirect",
+              "name": "CopyDirect",
+              "component": "/directives/copyDirect",
+              "meta": {
+                "title": "复制指令",
+                "icon": "tools"
+              }
+            },
+            {
+              "path": "/directives/dragDirect",
+              "name": "DragDirect",
+              "component": "/directives/dragDirect",
+              "meta": {
+                "title": "拖拽指令",
+                "icon": "tools"
+              }
+            },
+            {
+              "path": "/directives/debounceDirect",
+              "name": "DebounceDirect",
+              "component": "/directives/debounceDirect",
+              "meta": {
+                "title": "防抖指令",
+                "icon": "tools"
+              }
+            },
+            {
+              "path": "/directives/throttleDirect",
+              "name": "ThrottleDirect",
+              "component": "/directives/throttleDirect",
+              "meta": {
+                "title": "节流指令",
+                "icon": "tools"
+              }
+            },
+            {
+              "path": "/directives/longpressDirect",
+              "name": "LongpressDirect",
+              "component": "/directives/longpressDirect",
+              "meta": {
+                "title": "长按指令",
+                "icon": "tools"
+              }
+            }
+          ]
         }
       ],
       "btnControl": [
