@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch, computed } from 'vue'
+import { watch } from 'vue'
 
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
@@ -66,9 +66,12 @@ const {
 } = useGlobalSystem()
 
 // 监视路由的变化，进行 tab 标签的增加
+// 获取当前路由参数
+const curPath = ref(route.path)
 watch(
   () => route.fullPath,
   () => {
+    curPath.value = route.path
     const labelItem: LabelItem = {
       path: route.path,
       title: route.meta.title as string,
@@ -102,11 +105,6 @@ const handleLabelItemCloseOther = () => {
 const handleLabelItemClear = () => {
   clearLabelbar(route.path)
 }
-
-// 获取当前路由参数
-const curPath = computed(() => {
-  return route.path
-})
 </script>
 
 <style scoped lang="scss">

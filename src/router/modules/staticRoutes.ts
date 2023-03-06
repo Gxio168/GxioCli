@@ -27,7 +27,7 @@ export const staticRoutes: Array<unionRoutes> = [
 //  404 界面, 用于在添加完成动态路由后添加，保证在最后载入
 export const notFoundRoute = {
   path: '/:pathMatch(.*)',
-  component: () => import('@/components/NotFound/index.vue'),
+  component: () => import('@/views/notFound/index.vue'),
   name: 'NotFound',
   hidden: true
 } as RouteRecordRaw

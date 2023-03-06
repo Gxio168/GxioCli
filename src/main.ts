@@ -13,7 +13,6 @@ import { registerDirectives } from './directives'
 import App from './App.vue'
 import '@/style/index.scss'
 import 'virtual:svg-icons-register'
-
 const app = createApp(App)
 app.config.errorHandler = errorHandler
 app.use(router).use(i18n)
@@ -22,5 +21,4 @@ registerIcon(app)
 registerStore(app)
 registerComponent(app)
 registerDirectives(app)
-
 app.mount('#app')

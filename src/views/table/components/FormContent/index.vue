@@ -1,6 +1,6 @@
 <template>
   <!-- table 表格 -->
-  <el-card style="margin-top: 10px; max-height: 100%">
+  <el-card style="margin-top: 10px; flex: 1" ref="cardRef">
     <div class="table-head">
       <el-button icon="plus" type="primary" @click="handleAddUser">新增用户</el-button>
       <el-button icon="plus" type="primary" plain>批量添加用户</el-button>
@@ -9,10 +9,9 @@
     </div>
 
     <el-table
-      style="width: 100%"
-      class="table"
       border
       max-height="450"
+      :height="tableHeight"
       :data="userList"
       header-cell-class-name="table-head"
       @selection-change="handleSelectChange"
@@ -52,7 +51,7 @@
     </el-table>
     <!-- 底部 分页器 -->
     <el-pagination
-      style="justify-content: flex-end; margin-top: 10px"
+      style="justify-content: flex-end; margin-top: 5px; height: 50px"
       v-model:current-page="currentPage"
       v-model:page-size="pageSize"
       :page-sizes="[10, 20, 50, 100]"
@@ -66,14 +65,28 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useListStore } from '@/stores/modules/list'
-import { infoDetail } from '@/components'
+import { infoDetail } from '../infoDetail/index'
 import { getStaticData } from '@/utils/getStaticDate'
-import type { FormRules } from 'element-plus'
+import { useWindowWidth } from '@/hooks/useWindowWidth'
 
+import type { FormRules } from 'element-plus'
 import type { FormTable } from '@/types'
+
+const { pageWidth, cancelHandleWindow } = useWindowWidth()
+
+// 实现 table 主体部分的高度响应式
+const cardRef = ref()
+const tableHeight = ref(450)
+watch(
+  () => pageWidth.value,
+  () => {
+    const totalHeight = cardRef.value.$el.offsetHeight
+    tableHeight.value = totalHeight - 120
+    console.log(tableHeight)
+  }
+)
 
 interface Props {
   config: FormTable
@@ -149,6 +162,10 @@ const handleEditInfo = (row: any) => {
 const handleDeleteInfo = (row: any) => {
   listStore.deleteInfoList(props.url, [row.id])
 }
+
+onUnmounted(() => {
+  cancelHandleWindow()
+})
 </script>
 <style scoped lang="scss">
 .table-head {

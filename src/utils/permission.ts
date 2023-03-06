@@ -10,7 +10,7 @@ const axiosCanceler = new AxiosCanceler()
 // 白名单
 const whiteList = ['/login']
 
-export const permission: NavigationGuardWithThis<undefined> = async (to, from, next) => {
+export const permission: NavigationGuardWithThis<undefined> = async (to, _, next) => {
   axiosCanceler.removeAllPending()
   Nprogress.start()
   const authStore = useAuthStore()

@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <el-card style="min-height: 80px;">
     <el-form :model="formData" class="demo-form-inline">
       <el-row :gutter="20">
         <template v-for="(item, index) in formInline">

@@ -1,5 +1,5 @@
 <template>
-  <div clasas="basic-form">
+  <div class="basic-form">
     <form-search-vue
       :config="searchConfig"
       @handle-search="handleSearch"
@@ -40,6 +40,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import formContentVue from '../components/FormContent/index.vue'
+import formSearchVue from '../components/FormSearch/index.vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useListStore } from '@/stores/modules/list'
 
@@ -48,7 +50,7 @@ import { searchConfig, tableConfig, rules } from './config'
 const listStore = useListStore()
 
 const curPage = ref(10)
-// 表头搜索事件
+// 表头搜索事件  自定义处理逻辑
 const handleSearch = (formData: any) => {
   listStore.putInfoList('userList', curPage.value, formData)
   ElMessage({
@@ -70,14 +72,14 @@ const handleReset = () => {
   })
 }
 
-// 表单内容部分
+// 表单内容部分 自定义
 const selectedDatas = ref()
+const isDeleteBtnDisable = ref(true)
 // 表单选择事件
 const handleSeelctChange = (datas: Array<any>) => {
   datas.length ? (isDeleteBtnDisable.value = false) : (isDeleteBtnDisable.value = true)
   selectedDatas.value = datas.map(item => item.id)
 }
-
 // 移除选中的表单内容
 const handleDeleteData = () => {
   ElMessageBox.confirm('是否删除所选用户信息?', '温馨提示', {
@@ -95,14 +97,19 @@ const handleDeleteData = () => {
     .catch(() => {})
 }
 
-// 消息提示
+// 消息提示  自定义
 const handleShowTip = () => {
   ElMessage({
     message: '这是插槽渲染出来的',
     type: 'success'
   })
 }
-
-const isDeleteBtnDisable = ref(true)
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.basic-form {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+</style>

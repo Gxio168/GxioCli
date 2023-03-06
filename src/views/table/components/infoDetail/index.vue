@@ -68,7 +68,7 @@
 </template>
 <script lang="ts" setup>
 import type { FormRules, FormInstance } from 'element-plus'
-import avatarVue from '../UploadImg/index.vue'
+import avatarVue from '@/components/modules/UploadImg/index.vue'
 
 interface Props {
   type: string // 当前打开模板的类型

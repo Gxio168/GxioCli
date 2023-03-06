@@ -1,5 +1,5 @@
 <template>
-  <div clasas="basic-form">
+  <div class="basic-form">
     当前表头配置: <br />
     <template v-for="item in searchConfig">
       <el-tag type="success" size="large">{{ item }} </el-tag> <br />
@@ -48,9 +48,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import formContentVue from '../components/FormContent/index.vue'
+import formSearchVue from '../components/FormSearch/index.vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useListStore } from '@/stores/modules/list'
-
 import { searchConfig, tableConfig, rules } from './config'
 
 const listStore = useListStore()
