@@ -28,9 +28,6 @@
         <avator-vue />
       </div>
     </div>
-    <div class="label-bar">
-      <label-bar-vue />
-    </div>
   </div>
 </template>
 

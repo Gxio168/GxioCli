@@ -1,12 +1,15 @@
 <template>
+  <div class="label-bar">
+    <label-bar-vue />
+  </div>
   <section class="app-main">
     <el-scrollbar height="100%">
       <router-view v-slot="{ Component }">
-        <transition name="fade-transform" mode="out-in">
-          <KeepAlive :include="authStore.getKeepAlivePaths" :max="10">
+        <KeepAlive :include="authStore.getKeepAlivePaths" :max="10" v-if="isRouterRefresh">
+          <transition name="fade-transform" mode="out-in">
             <component :is="Component" :key="key" />
-          </KeepAlive>
-        </transition>
+          </transition>
+        </KeepAlive>
       </router-view>
     </el-scrollbar>
   </section>
@@ -22,6 +25,19 @@ const authStore = useAuthStore()
 const { isDark } = useChangeDark()
 const { route } = useRouterOrRoute()
 const key = route.path
+
+// 刷新当前页面
+const isRouterRefresh = ref(true)
+const refreshCurrentPage = () => {
+  isRouterRefresh.value = false
+  nextTick(function () {
+    isRouterRefresh.value = true
+  })
+}
+
+// 交由子组件进行处理
+provide('refresh', refreshCurrentPage)
+
 const appBgc = computed(() => {
   // 判断一下当前的主题背景
   if (!isDark.value) {

@@ -26,7 +26,11 @@
         </el-button>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item icon="remove" @click="handleLabelItemRemove(route.path)">
+            <el-dropdown-item icon="refresh" @click="reload">
+              <!-- 关闭当前 -->
+              {{ $t('tabs.refresh') }}</el-dropdown-item
+            >
+            <el-dropdown-item icon="remove" @click="handleLabelItemRemove(route.path)" divided>
               <!-- 关闭当前 -->
               {{ $t('tabs.closeCurrent') }}</el-dropdown-item
             >
@@ -46,8 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue'
-
+import { ElMessage } from 'element-plus'
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
 import { HOME_PAGE } from '@/config'
@@ -104,6 +107,13 @@ const handleLabelItemCloseOther = () => {
 // 移出全部标签
 const handleLabelItemClear = () => {
   clearLabelbar(route.path)
+}
+
+// 从 appMain 组件注入的命令,可以控制局部组件刷新
+const handleRefresh = <any>inject('refresh')
+const reload = () => {
+  ElMessage({ type: 'success', message: '刷新当前页面 🚀' })
+  handleRefresh()
 }
 </script>
 
