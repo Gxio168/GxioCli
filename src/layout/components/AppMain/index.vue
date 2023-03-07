@@ -3,7 +3,9 @@
     <el-scrollbar height="100%">
       <router-view v-slot="{ Component }">
         <transition name="fade-transform" mode="out-in">
-          <component :is="Component" :key="key" />
+          <KeepAlive :include="authStore.getKeepAlivePaths" :max="10">
+            <component :is="Component" :key="key" />
+          </KeepAlive>
         </transition>
       </router-view>
     </el-scrollbar>
@@ -12,13 +14,14 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useAuthStore } from '@/stores/modules/auth'
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useChangeDark } from '@/hooks/useChangeDark'
 
+const authStore = useAuthStore()
 const { isDark } = useChangeDark()
 const { route } = useRouterOrRoute()
 const key = route.path
-
 const appBgc = computed(() => {
   // 判断一下当前的主题背景
   if (!isDark.value) {

@@ -1,3 +1,5 @@
+<script setup lang="ts" name="Dashboard">
+</script>
 <template>
   <el-card class="card">
     <div class="img-box">
@@ -6,7 +8,6 @@
   </el-card>
 </template>
 
-<script setup lang="ts"></script>
 <style scoped lang="scss">
 .card {
   width: 100%;

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" name="CopyDirect">
 const data = ref('我是被复制的内容 🍒 🍉 🍊')
 </script>
 <template>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" name="UploadImg">
 const config = [
   { label: 'id', text: '唯一标识一个上传列表(必传)' },
   { label: 'drag', text: '是否可以拖拽上传，default: false' },

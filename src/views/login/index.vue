@@ -1,47 +1,4 @@
-<template>
-  <div class="login-container">
-    <div class="login-form">
-      <h3 class="title">Login Form</h3>
-      <el-form :model="userInfo" :rules="rules" ref="ruleFormRef">
-        <el-form-item prop="username" style="display: flex">
-          <el-input
-            prefix-icon="UserFilled"
-            size="large"
-            v-model="userInfo.username"
-            placeholder="Please input userName"
-            width="80"
-          ></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input
-            prefix-icon="Lock"
-            size="large"
-            v-model="userInfo.password"
-            show-password
-            placeholder="Please input password"
-          >
-          </el-input>
-        </el-form-item>
-        <el-button
-          size="large"
-          type="primary"
-          style="width: 100%; margin-bottom: 30px"
-          @click="handleLogin(ruleFormRef)"
-          :loading="isLoading"
-          >Login
-        </el-button>
-
-        <div class="tips">
-          <span style="margin-right: 20px">username: admin</span>
-          <span> password: any</span>
-        </div>
-      </el-form>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/modules/auth'
 import type { UserInfo } from '@/types/index'
@@ -113,6 +70,48 @@ const rules = authRules
 // 按钮加载状态, 模拟网络延迟
 const isLoading = ref(false)
 </script>
+
+<template>
+  <div class="login-container">
+    <div class="login-form">
+      <h3 class="title">Login Form</h3>
+      <el-form :model="userInfo" :rules="rules" ref="ruleFormRef">
+        <el-form-item prop="username" style="display: flex">
+          <el-input
+            prefix-icon="UserFilled"
+            size="large"
+            v-model="userInfo.username"
+            placeholder="Please input userName"
+            width="80"
+          ></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input
+            prefix-icon="Lock"
+            size="large"
+            v-model="userInfo.password"
+            show-password
+            placeholder="Please input password"
+          >
+          </el-input>
+        </el-form-item>
+        <el-button
+          size="large"
+          type="primary"
+          style="width: 100%; margin-bottom: 30px"
+          @click="handleLogin(ruleFormRef)"
+          :loading="isLoading"
+          >Login
+        </el-button>
+
+        <div class="tips">
+          <span style="margin-right: 20px">username: admin</span>
+          <span> password: any</span>
+        </div>
+      </el-form>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 $bg: #2d3a4b;

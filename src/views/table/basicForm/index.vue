@@ -1,53 +1,4 @@
-<template>
-  <div class="basic-form">
-    当前表头配置: <br />
-    <template v-for="item in searchConfig">
-      <el-tag type="success" size="large">{{ item }} </el-tag> <br />
-    </template>
-    <form-search-vue
-      :config="searchConfig"
-      @handle-search="handleSearch"
-      @handle-reset="handleReset"
-    />
-    当前表格配置: <br />
-    <template v-for="item in tableConfig">
-      <el-tag type="success" size="large">{{ item }} </el-tag> <br />
-    </template>
-    <!-- 表单部分 -->
-    <form-content-vue
-      @handle-select-change="handleSeelctChange"
-      @handle-page-size-change="handlePageSizeChange"
-      :config="tableConfig"
-      :rules="rules"
-      url="userList"
-    >
-      <!-- 自定义传递内容 -->
-      <!-- 表头自定义内容 -->
-      <template #tableHead>
-        <el-button
-          icon="plus"
-          type="danger"
-          plain
-          :disabled="isDeleteBtnDisable"
-          @click="handleDeleteData"
-          >批量删除数据</el-button
-        >
-      </template>
-      <!-- 表格内容 -->
-      <template #sex="{ row }">
-        <el-link :underline="false" type="primary" @click="handleShowTip">{{
-          row.sex === 1 ? '男' : '女'
-        }}</el-link>
-      </template>
-      <template #status="{ row }">
-        <el-tag class="ml-2">{{ row.status ? '启用' : '禁用' }}</el-tag>
-      </template>
-    </form-content-vue>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
+<script setup lang="ts" name="BasicTable">
 import formContentVue from '../components/FormContent/index.vue'
 import formSearchVue from '../components/FormSearch/index.vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
@@ -114,4 +65,53 @@ const handleShowTip = () => {
 
 const isDeleteBtnDisable = ref(true)
 </script>
+
+<template>
+  <div class="basic-form">
+    当前表头配置: <br />
+    <template v-for="item in searchConfig">
+      <el-tag type="success" size="large">{{ item }} </el-tag> <br />
+    </template>
+    <form-search-vue
+      :config="searchConfig"
+      @handle-search="handleSearch"
+      @handle-reset="handleReset"
+    />
+    当前表格配置: <br />
+    <template v-for="item in tableConfig">
+      <el-tag type="success" size="large">{{ item }} </el-tag> <br />
+    </template>
+    <!-- 表单部分 -->
+    <form-content-vue
+      @handle-select-change="handleSeelctChange"
+      @handle-page-size-change="handlePageSizeChange"
+      :config="tableConfig"
+      :rules="rules"
+      url="userList"
+    >
+      <!-- 自定义传递内容 -->
+      <!-- 表头自定义内容 -->
+      <template #tableHead>
+        <el-button
+          icon="plus"
+          type="danger"
+          plain
+          :disabled="isDeleteBtnDisable"
+          @click="handleDeleteData"
+          >批量删除数据</el-button
+        >
+      </template>
+      <!-- 表格内容 -->
+      <template #sex="{ row }">
+        <el-link :underline="false" type="primary" @click="handleShowTip">{{
+          row.sex === 1 ? '男' : '女'
+        }}</el-link>
+      </template>
+      <template #status="{ row }">
+        <el-tag class="ml-2">{{ row.status ? '启用' : '禁用' }}</el-tag>
+      </template>
+    </form-content-vue>
+  </div>
+</template>
+
 <style scoped lang="scss"></style>

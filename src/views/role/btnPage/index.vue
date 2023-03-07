@@ -1,3 +1,10 @@
+<script setup lang="ts" name="Btn">
+import { useBtnPermisson } from '@/hooks/useBtnPermisson'
+import { useChangeDark } from '@/hooks/useChangeDark'
+
+const { bgColor } = useChangeDark()
+const { btnAdd, btnDelete, btnSearch, btnUpdate } = useBtnPermisson()
+</script>
 <template>
   <page-content-vue>
     <template #title>按钮权限 🍓🍇🍐🍉</template>
@@ -16,13 +23,6 @@
   </page-content-vue>
 </template>
 
-<script setup lang="ts">
-import { useBtnPermisson } from '@/hooks/useBtnPermisson'
-import { useChangeDark } from '@/hooks/useChangeDark'
-
-const { bgColor } = useChangeDark()
-const { btnAdd, btnDelete, btnSearch, btnUpdate } = useBtnPermisson()
-</script>
 <style scoped lang="scss">
 button.el-button {
   --el-button-text-color: v-bind(bgColor) !important;

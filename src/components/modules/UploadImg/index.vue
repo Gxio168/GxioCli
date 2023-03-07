@@ -46,7 +46,6 @@ const transformUrl = (imageUrl: string | Array<string>) => {
 
 // 双向绑定的传递参数
 const emit = defineEmits(['update:modelValue'])
-console.log(props)
 // 图片资源列表
 const fileList: Ref<UploadUserFile[]> = ref(transformUrl(props.imageUrl))
 

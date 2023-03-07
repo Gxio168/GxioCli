@@ -17,3 +17,11 @@ export function getShowMenuList(menuList: Array<any>) {
     return !item.hidden
   })
 }
+
+export function getKeepAliveList(menuList: Array<any>, keepAliveArr: string[] = []) {
+  menuList.forEach(item => {
+    item.meta.iskeepAlive && item.name && keepAliveArr.push(item.name)
+    item.children?.length && getKeepAliveList(item.children, keepAliveArr)
+  })
+  return keepAliveArr
+}

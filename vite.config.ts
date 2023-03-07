@@ -9,6 +9,7 @@ import { viteMockServe } from 'vite-plugin-mock'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { sshPlugin } from './vite-plugin-ssh/vite-plugin-ssh'
+import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 
 export default ({ command }: ConfigEnv): UserConfigExport => {
   let prodMock = true
@@ -17,6 +18,8 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
     plugins: [
       vue(),
       vueJsx(),
+      // 设置组件名称，name 可以写在 script 标签上
+      VueSetupExtend(),
       viteMockServe({
         mockPath: './Mock/',
         localEnabled: command === 'serve',
@@ -56,6 +59,6 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
     server: {
       open: true,
       cors: true
-    },
+    }
   }
 }

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" name="LongpressDirect">
 import { ElMessage } from 'element-plus'
 const longpress = () => {
   ElMessage.success('长按事件触发成功 🎉🎉🎉')

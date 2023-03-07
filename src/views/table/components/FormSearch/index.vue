@@ -1,5 +1,72 @@
+<script setup lang="ts">
+import { getStaticData } from '@/utils/getStaticDate'
+import { showLineNum, getblankCol } from './helper'
+import { useWindowWidth } from '@/hooks/useWindowWidth'
+
+import type { FormHeader } from '@/types'
+
+const { pageWidth, cancelHandleWindow } = useWindowWidth()
+
+// 页面卸载移除 window 的 resize 事件
+onBeforeUnmount(() => {
+  cancelHandleWindow()
+})
+
+// 一行显示选项的个数
+const span = ref(8)
+
+// 监视 一行显示个数的变化
+watch(
+  () => pageWidth.value,
+  newVal => {
+    if (newVal > 1900) {
+      span.value = 6
+    } else if (newVal > 1000) {
+      span.value = 8
+    } else {
+      span.value = 12
+    }
+  },
+  { immediate: true }
+)
+const props = defineProps<{
+  config: FormHeader
+}>()
+
+const emit = defineEmits(['handleSearch', 'handleReset'])
+
+// 判断一下当前的搜索项是否 大于2, 不大于2 则没有折叠的必要
+const configLen = props.config.length
+const formInline = ref(props.config)
+
+const staticData = getStaticData(props.config)
+
+const formData = ref(staticData)
+
+// 判断当前是否进行折叠
+const isCollapes = ref(true)
+// 能否折叠
+const canCollapes = configLen > 2
+
+// 获取进行折叠后的 formInline 数组
+const handleCollapesFrom = () => {
+  isCollapes.value = !isCollapes.value
+}
+
+// 表单搜索
+const search = () => {
+  emit('handleSearch', toRaw(formData.value))
+}
+
+// 表单重置
+const reset = () => {
+  formData.value = getStaticData(props.config)
+  emit('handleReset')
+}
+</script>
+
 <template>
-  <el-card style="min-height: 80px;">
+  <el-card style="min-height: 80px">
     <el-form :model="formData" class="demo-form-inline">
       <el-row :gutter="20">
         <template v-for="(item, index) in formInline">
@@ -66,72 +133,4 @@
     </el-form>
   </el-card>
 </template>
-<script lang="ts"></script>
-<script setup lang="ts">
-import { ref, onBeforeUnmount, watch, toRaw } from 'vue'
-import { getStaticData } from '@/utils/getStaticDate'
-import { showLineNum, getblankCol } from './helper'
-import { useWindowWidth } from '@/hooks/useWindowWidth'
-
-import type { FormHeader } from '@/types'
-
-const { pageWidth, cancelHandleWindow } = useWindowWidth()
-
-// 页面卸载移除 window 的 resize 事件
-onBeforeUnmount(() => {
-  cancelHandleWindow()
-})
-
-// 一行显示选项的个数
-const span = ref(8)
-
-// 监视 一行显示个数的变化
-watch(
-  () => pageWidth.value,
-  newVal => {
-    if (newVal > 1900) {
-      span.value = 6
-    } else if (newVal > 1000) {
-      span.value = 8
-    } else {
-      span.value = 12
-    }
-  },
-  { immediate: true }
-)
-const props = defineProps<{
-  config: FormHeader
-}>()
-
-const emit = defineEmits(['handleSearch', 'handleReset'])
-
-// 判断一下当前的搜索项是否 大于2, 不大于2 则没有折叠的必要
-const configLen = props.config.length
-const formInline = ref(props.config)
-
-const staticData = getStaticData(props.config)
-
-const formData = ref(staticData)
-
-// 判断当前是否进行折叠
-const isCollapes = ref(true)
-// 能否折叠
-const canCollapes = configLen > 2
-
-// 获取进行折叠后的 formInline 数组
-const handleCollapesFrom = () => {
-  isCollapes.value = !isCollapes.value
-}
-
-// 表单搜索
-const search = () => {
-  emit('handleSearch', toRaw(formData.value))
-}
-
-// 表单重置
-const reset = () => {
-  formData.value = getStaticData(props.config)
-  emit('handleReset')
-}
-</script>
 <style scoped lang="scss"></style>

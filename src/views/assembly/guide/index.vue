@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" name="Guide">
 import guide from '@/config/driver'
 </script>
 <template>

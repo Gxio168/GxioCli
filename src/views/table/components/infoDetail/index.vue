@@ -1,3 +1,81 @@
+<script lang="ts" setup>
+import type { FormRules, FormInstance } from 'element-plus'
+import avatarVue from '@/components/modules/UploadImg/index.vue'
+
+interface Props {
+  type: string // 当前打开模板的类型
+  config: any // ===> 传入的信息
+  template: any // ===> 模板
+  close: any //  ===> 关闭侧边栏出发的事件
+  rules?: FormRules // ====> 传入的 rule 验证规则
+  confirmHandler: any
+  cancelHandler: any
+}
+
+const props = defineProps<Props>()
+const rules = reactive<FormRules>(props.rules as FormRules)
+const drawer = ref(true)
+const configItems = ref({}) as any
+for (const key in props.config) {
+  configItems.value[key] = props.config[key]
+}
+
+// 标题
+const title = computed(() => {
+  switch (props.type) {
+    case 'get':
+      return '查看用户'
+    case 'edit':
+      return '编辑用户'
+    case 'add':
+      return '新增用户'
+  }
+})
+
+// 是否可以修改值
+const disabled = computed(() => props.type === 'get')
+
+const templateList = props.template.filter(
+  (item: any) => item.canModify === undefined || item.canModify === true
+)
+
+// 取消按钮
+const cancelClick = () => {
+  props.cancelHandler()
+  drawer.value = false
+  setTimeout(() => {
+    props.close()
+  }, 200)
+}
+
+// 表单实例  头像实例  图片实例
+const ruleFormRef = ref<FormInstance>()
+const avatarRef = ref(null) as any
+const photoRef = ref(null) as any
+// 确定按钮
+const confirmClick = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  await formEl.validate((valid, fields) => {
+    if (valid) {
+      props.confirmHandler(configItems)
+      // 上传图片
+      avatarRef.value.length && avatarRef.value[0].handleUpload()
+      photoRef.value.length && photoRef.value[0].handleUpload()
+      drawer.value = false
+      setTimeout(() => {
+        props.close()
+      }, 200)
+    }
+  })
+}
+// 关闭页面
+const closePage = () => {
+  drawer.value = false
+  props.cancelHandler()
+  props.close()
+}
+</script>
+
 <template>
   <el-drawer v-model="drawer" @closed="closePage" :title="title">
     <template #default>
@@ -66,84 +144,7 @@
     </template>
   </el-drawer>
 </template>
-<script lang="ts" setup>
-import type { FormRules, FormInstance } from 'element-plus'
-import avatarVue from '@/components/modules/UploadImg/index.vue'
 
-interface Props {
-  type: string // 当前打开模板的类型
-  config: any // ===> 传入的信息
-  template: any // ===> 模板
-  close: any //  ===> 关闭侧边栏出发的事件
-  rules?: FormRules // ====> 传入的 rule 验证规则
-  confirmHandler: any
-  cancelHandler: any
-}
-
-const props = defineProps<Props>()
-console.log(props.rules)
-const rules = reactive<FormRules>(props.rules as FormRules)
-const drawer = ref(true)
-const configItems = ref({}) as any
-for (const key in props.config) {
-  configItems.value[key] = props.config[key]
-}
-
-// 标题
-const title = computed(() => {
-  switch (props.type) {
-    case 'get':
-      return '查看用户'
-    case 'edit':
-      return '编辑用户'
-    case 'add':
-      return '新增用户'
-  }
-})
-
-// 是否可以修改值
-const disabled = computed(() => props.type === 'get')
-
-const templateList = props.template.filter(
-  (item: any) => item.canModify === undefined || item.canModify === true
-)
-
-// 取消按钮
-const cancelClick = () => {
-  props.cancelHandler()
-  drawer.value = false
-  setTimeout(() => {
-    props.close()
-  }, 200)
-}
-
-// 表单实例  头像实例  图片实例
-const ruleFormRef = ref<FormInstance>()
-const avatarRef = ref(null) as any
-const photoRef = ref(null) as any
-// 确定按钮
-const confirmClick = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  await formEl.validate((valid, fields) => {
-    if (valid) {
-      props.confirmHandler(configItems)
-      // 上传图片
-      avatarRef.value.length && avatarRef.value[0].handleUpload()
-      photoRef.value.length && photoRef.value[0].handleUpload()
-      drawer.value = false
-      setTimeout(() => {
-        props.close()
-      }, 200)
-    }
-  })
-}
-// 关闭页面
-const closePage = () => {
-  drawer.value = false
-  props.cancelHandler()
-  props.close()
-}
-</script>
 <style scoped lang="scss">
 .footer {
   padding: 10px 15px;

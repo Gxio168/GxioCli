@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" name="ThrottleDirect">
 import { ElMessage } from 'element-plus'
 const handleThrottleClick = () => {
   ElMessage({

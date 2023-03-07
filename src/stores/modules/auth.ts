@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 import { reqLogin, reqUserInfo, reqUserRole } from '@/api/modules/auth'
 import { getToken, setToken, removeToken } from '@/utils/token'
 import { initDynamicRoutes } from '@/router/modules/dynamicRoutes'
-import { getShowMenuList } from '@/utils/matchedRoutes'
+import { getShowMenuList, getKeepAliveList } from '@/utils/matchedRoutes'
 import type { UserInfo } from '@/types'
 import { useAppStore } from './app'
 
@@ -66,6 +66,9 @@ export const useAuthStore = defineStore('auth', {
     },
     avatar(state) {
       return state.userInfo.avatar
+    },
+    getKeepAlivePaths(state) {
+      return getKeepAliveList(state.menuList)
     }
   },
   persist: {

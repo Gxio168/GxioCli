@@ -1,4 +1,4 @@
-<script setup lang="ts"></script>
+<script setup lang="ts" name="DragDirect"></script>
 <template>
   <page-content-vue>
     <template #title>拖拽指令🍇🍇🍇🍓🍓🍓 </template>

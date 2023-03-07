@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" name="SelectFilter">
 const filterResult = ref({ state: '1', type: ['1', '3'] })
 const filterData = [
   {
