@@ -1,29 +1,15 @@
-<template>
-  <div class="label-bar">
-    <label-bar-vue />
-  </div>
-  <section class="app-main">
-    <el-scrollbar height="100%">
-      <router-view v-slot="{ Component }">
-        <KeepAlive :include="authStore.getKeepAlivePaths" :max="10" v-if="isRouterRefresh">
-          <transition name="fade-transform" mode="out-in">
-            <component :is="Component" :key="key" />
-          </transition>
-        </KeepAlive>
-      </router-view>
-    </el-scrollbar>
-  </section>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useAuthStore } from '@/stores/modules/auth'
 import { useRouterOrRoute } from '@/hooks/useRoute'
 import { useChangeDark } from '@/hooks/useChangeDark'
+import { useGlobalSystem } from '@/hooks/useGlobalSystem'
 
 const authStore = useAuthStore()
-const { isDark } = useChangeDark()
+const { isDark, bgColor } = useChangeDark()
 const { route } = useRouterOrRoute()
+// 控制页脚的展示
+const { footerOpen } = useGlobalSystem()
 const key = route.path
 
 // 刷新当前页面
@@ -38,6 +24,7 @@ const refreshCurrentPage = () => {
 // 交由子组件进行处理
 provide('refresh', refreshCurrentPage)
 
+// 切换背景色
 const appBgc = computed(() => {
   // 判断一下当前的主题背景
   if (!isDark.value) {
@@ -47,13 +34,42 @@ const appBgc = computed(() => {
   }
 })
 </script>
+
+<template>
+  <div class="label-bar">
+    <label-bar-vue />
+  </div>
+  <section class="app-main">
+    <el-scrollbar height="100%">
+      <router-view v-slot="{ Component }">
+        <KeepAlive :include="authStore.getKeepAlivePaths" :max="10" v-if="isRouterRefresh">
+          <transition name="fade-transform" mode="out-in">
+            <component :is="Component" :key="key" />
+          </transition>
+        </KeepAlive>
+      </router-view>
+    </el-scrollbar>
+    <footer class="app-footer" v-if="footerOpen">2023 © Gxio-Admin By Gxio.</footer>
+  </section>
+</template>
+
 <style lang="scss" scoped>
 .app-main {
+  position: relative;
   width: 100%;
   height: 100%;
-  position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   background-color: v-bind(appBgc);
+}
+.app-footer {
+  background-color: v-bind(bgColor);
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 14px;
+  color: #aaa;
 }
 .fade-transform-leave-active,
 .fade-transform-enter-active {

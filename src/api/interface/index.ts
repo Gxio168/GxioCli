@@ -10,3 +10,9 @@ interface Result {
 export interface ResultData<T> extends Result {
   data: T
 }
+
+export interface DepartmentItem {
+  id: string
+  name: string
+  children?: Array<DepartmentItem>
+}

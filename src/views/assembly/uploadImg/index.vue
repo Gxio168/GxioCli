@@ -21,47 +21,45 @@ const upload = () => {
 <template>
   <Page-content-vue>
     <template #title> 多图片上传 🍓🍇🍐🍉 </template>
-    <template #content>
-      <el-button @click="upload">Click</el-button>
-      <div class="upload">
-        <div class="item">
-          <span class="title">单文件上传</span>
-          <upload-img-vue
-            ref="uploadRef"
-            id="upload3"
-            type="avatar"
-            url="/api/upload"
-            image-url="https://i.imgtg.com/2023/01/16/QR57a.jpg"
-          />
-        </div>
-        <div class="item">
-          <span class="title">多文件上传</span>
-          <upload-img-vue
-            id="upload4"
-            type="picture"
-            url="/api/upload"
-            :limitNums="5"
-            :isRadius="false"
-            :drag="true"
-            :image-url="[]"
-          />
-        </div>
-        <div class="item">
-          <span class="title">禁止上传</span>
-          <upload-img-vue
-            id="upload4"
-            type="avatar"
-            url="/api/upload"
-            disabled
-            :limitNums="2"
-            image-url="https://i.imgtg.com/2023/01/16/QR57a.jpg"
-          />
-        </div>
+    <el-button @click="upload">Click</el-button>
+    <div class="upload">
+      <div class="item">
+        <span class="title">单文件上传</span>
+        <upload-img-vue
+          ref="uploadRef"
+          id="upload3"
+          type="avatar"
+          url="/api/upload"
+          image-url="https://i.imgtg.com/2023/01/16/QR57a.jpg"
+        />
       </div>
-      <div class="descriptor">
-        <descriptions-vue title="配置项 📚（其它参数和单图上传组件相同）" :config="config" />
+      <div class="item">
+        <span class="title">多文件上传</span>
+        <upload-img-vue
+          id="upload4"
+          type="picture"
+          url="/api/upload"
+          :limitNums="5"
+          :isRadius="false"
+          :drag="true"
+          :image-url="[]"
+        />
       </div>
-    </template>
+      <div class="item">
+        <span class="title">禁止上传</span>
+        <upload-img-vue
+          id="upload4"
+          type="avatar"
+          url="/api/upload"
+          disabled
+          :limitNums="2"
+          image-url="https://i.imgtg.com/2023/01/16/QR57a.jpg"
+        />
+      </div>
+    </div>
+    <div class="descriptor">
+      <descriptions-vue title="配置项 📚（其它参数和单图上传组件相同）" :config="config" />
+    </div>
   </Page-content-vue>
 </template>
 

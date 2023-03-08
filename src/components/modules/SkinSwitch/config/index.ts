@@ -54,6 +54,11 @@ export default [
         name: 'labelBarIconOpen',
         label: '标签栏图标',
         handle: 'toggleSidebar'
+      },
+      {
+        name: 'footerOpen',
+        label: '页脚',
+        handle: 'toggleFooter'
       }
     ]
   }

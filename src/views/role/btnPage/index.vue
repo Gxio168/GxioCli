@@ -8,7 +8,6 @@ const { btnAdd, btnDelete, btnSearch, btnUpdate } = useBtnPermisson()
 <template>
   <page-content-vue>
     <template #title>按钮权限 🍓🍇🍐🍉</template>
-    <template #content>
       <div class="btn-page">
         <el-tag type="success" size="large"
           >当前用户权限:{{ { btnAdd, btnDelete, btnSearch, btnUpdate } }}</el-tag
@@ -19,7 +18,6 @@ const { btnAdd, btnDelete, btnSearch, btnUpdate } = useBtnPermisson()
         <el-button color="#f56c6c" icon="delete" v-if="btnDelete">删除</el-button>
         <el-button type="primary" icon="search" v-if="btnSearch">查询</el-button>
       </div>
-    </template>
   </page-content-vue>
 </template>
 

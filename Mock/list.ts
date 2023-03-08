@@ -1,4 +1,5 @@
 import { mock } from 'mockjs'
+import data from './data.json'
 
 export default [
   {
@@ -104,6 +105,17 @@ export default [
             }
           ]
         }).result,
+        message: 'ok'
+      }
+    }
+  },
+  {
+    url: '/api/list/department',
+    method: 'get',
+    response: config => {
+      return {
+        statusCode: 200,
+        data: data.department,
         message: 'ok'
       }
     }

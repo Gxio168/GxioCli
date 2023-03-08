@@ -16,7 +16,8 @@ export function useGlobalSystem() {
     hamburgerIconOpen,
     labelBarOpen,
     labelBarIconOpen,
-    isChinese
+    isChinese,
+    footerOpen
   } = storeToRefs(appStore)
 
   return {
@@ -32,12 +33,14 @@ export function useGlobalSystem() {
     fullScreen,
     labelbar,
     isChinese,
+    footerOpen,
     addToLabelbar: appStore.addToLabelbar,
     removeFromLabelbar: appStore.removeFromLabelbar,
     clearLabelbar: appStore.clearLabelbar,
     closeOthersLabelbar: appStore.closeOthersLabelbar,
     toggleSidebar: appStore.toggleSidebar,
     toggleFullScreen: appStore.toggleFullScreen,
-    toggleLanguage: appStore.toggleLanguage
+    toggleLanguage: appStore.toggleLanguage,
+    toggeleFooter: appStore.toggleFooter
   }
 }

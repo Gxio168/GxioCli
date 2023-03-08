@@ -86,7 +86,6 @@ const handleChangeFilter = (selected: any) => {
     <template #title>
       <span>分类筛选器 🍓🍇🍈🍉</span>
     </template>
-    <template #content>
       <!-- 过滤组件 -->
       <select-filter
         :default-values="filterResult"
@@ -95,7 +94,6 @@ const handleChangeFilter = (selected: any) => {
       />
       <div style="text-align: center; font-weight: bold">返回值: {{ filterResult }}</div>
       <Descriptions title="配置项 📚" :config="config" />
-    </template>
   </page-content-vue>
 </template>
 

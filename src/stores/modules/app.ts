@@ -17,9 +17,14 @@ export const useAppStore = defineStore('app', {
     labelBarOpen: true,
     labelBarIconOpen: true,
     isChinese: true,
+    footerOpen: true,
     labelbar: [HOME_PAGE] as Array<LabelItem>
   }),
   actions: {
+    // 切换页脚状态
+    toggleFooter() {
+      this.footerOpen = !this.footerOpen
+    },
     // 切换 sidebar 的状态
     toggleSidebar() {
       this.sidebarOpen = !this.sidebarOpen

@@ -48,6 +48,8 @@ declare module '@vue/runtime-core' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ElTr: typeof import('element-plus/es')['ElTr']
+    ElTree: typeof import('element-plus/es')['ElTree']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Hamburger: typeof import('./src/components/modules/Hamburger/index.vue')['default']
     LabelBar: typeof import('./src/components/modules/labelBar/index.vue')['default']
@@ -59,6 +61,7 @@ declare module '@vue/runtime-core' {
     SelectFilter: typeof import('./src/components/modules/SelectFilter/index.vue')['default']
     SkinSwitch: typeof import('./src/components/modules/SkinSwitch/index.vue')['default']
     SvgIcon: typeof import('./src/components/modules/SvgIcon/index.vue')['default']
+    TreeFilter: typeof import('./src/components/modules/TreeFilter/index.vue')['default']
     UploadImg: typeof import('./src/components/modules/UploadImg/index.vue')['default']
   }
 }
