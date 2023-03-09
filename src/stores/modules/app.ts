@@ -6,9 +6,10 @@ import type { LabelItem } from '../interface'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
+    themeColor: '#ff6700',
+    layoutTheme: 'vertical',
     sidebarOpen: true,
     fullScreen: false,
-    themeColor: '#ff6700',
     isDark: false,
     isGrey: false,
     isAchromatism: false,
@@ -21,6 +22,10 @@ export const useAppStore = defineStore('app', {
     labelbar: [HOME_PAGE] as Array<LabelItem>
   }),
   actions: {
+    // 切换 布局 主题
+    switchLayoutTheme(theme: string) {
+      this.layoutTheme = theme
+    },
     // 切换页脚状态
     toggleFooter() {
       this.footerOpen = !this.footerOpen
