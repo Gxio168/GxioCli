@@ -62,6 +62,7 @@ declare module '@vue/runtime-core' {
     SelectFilter: typeof import('./src/components/modules/SelectFilter/index.vue')['default']
     SkinSwitch: typeof import('./src/components/modules/SkinSwitch/index.vue')['default']
     SvgIcon: typeof import('./src/components/modules/SvgIcon/index.vue')['default']
+    ThemeDrawer: typeof import('./src/components/modules/ThemeDrawer/index.vue')['default']
     TreeFilter: typeof import('./src/components/modules/TreeFilter/index.vue')['default']
     UploadImg: typeof import('./src/components/modules/UploadImg/index.vue')['default']
   }

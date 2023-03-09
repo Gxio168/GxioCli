@@ -1,7 +1,7 @@
 <template>
   <div class="translate">
     <el-dropdown trigger="click" @command="handleClick">
-      <svg-icon-vue name="fanyi" style="outline: none" />
+      <svg-icon-vue name="fanyi" style="outline: none" v-if="isShow" />
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item command="zh" :disabled="isChinese">简体中文</el-dropdown-item>
@@ -23,6 +23,11 @@ const handleClick = (command: string) => {
   i18n.locale.value = command
   command === 'zh' ? toggleLanguage(true) : toggleLanguage(false)
 }
+
+const isShow = ref(false)
+onMounted(() => {
+  isShow.value = true
+})
 </script>
 <style scoped lang="scss">
 .translate {

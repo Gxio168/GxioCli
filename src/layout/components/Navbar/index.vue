@@ -37,7 +37,7 @@ import translateVue from './components/translate.vue'
 import bellMessageVue from './components/bellMessage.vue'
 import fullScreenVue from './components/fullScreen.vue'
 import layoutSwitchVue from './components/layoutSwitch.vue'
-
+import skinSwitchVue from './components/skin-switch.vue'
 import { useGlobalSystem } from '@/hooks/useGlobalSystem'
 import { useChangeDark } from '@/hooks/useChangeDark'
 
