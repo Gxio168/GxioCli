@@ -1,0 +1,1 @@
+import{x as u,r,z as f}from"./index.d46c8804.js";function i(){const{isDark:o}=u(),e="#141414",a="#ffffff";let t=r(a),l=r(e);return f(()=>o.value,s=>{s?(t.value=e,l.value=a):(t.value=a,l.value=e)},{immediate:!0}),{bgColor:t,textColor:l,isDark:o}}export{i as u};
