@@ -1,10 +1,6 @@
 <template>
   <div>
     <el-scrollbar wrap-class="scrollbar-wrapper">
-      <div class="title">
-        <img src="../../../../public/favicon.ico" alt="" />
-        <span v-if="sidebarOpen" style="white-space: nowrap">Gxio Admin</span>
-      </div>
       <el-menu
         :default-active="activeMenu"
         :unique-opened="true"
@@ -71,24 +67,5 @@ watch(
 .el-menu {
   border: none;
   border-right-width: 0;
-}
-
-.title {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  span {
-    font-size: 20px;
-    font-weight: 600;
-    color: #dadada;
-    margin-left: 10px;
-  }
-  img {
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
-  }
 }
 </style>

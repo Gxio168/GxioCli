@@ -54,10 +54,13 @@ const appBgc = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+.label-bar {
+  background-color: v-bind(bgColor);
+}
 .app-main {
   position: relative;
   width: 100%;
-  height: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -71,6 +74,7 @@ const appBgc = computed(() => {
   font-size: 14px;
   color: #aaa;
 }
+
 .fade-transform-leave-active,
 .fade-transform-enter-active {
   transition: all 0.5s;
