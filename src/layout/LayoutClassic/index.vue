@@ -4,7 +4,7 @@
       <el-header>
         <div class="nav-container">
           <div class="title">
-            <img src="../../../../public/favicon.ico" alt="" />
+            <img src="../../../public/favicon.ico" alt="" />
             <span style="white-space: nowrap">Gxio Admin</span>
           </div>
           <Navbar-vue style="flex: 1" />
