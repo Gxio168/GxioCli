@@ -1,0 +1,1 @@
+import{bd as r}from"./index.d46c8804.js";function a(t,e,n,s){return r.get(`/list/${t}?page=${e}&offset=${n}`)}function o(t,e){return r.post(`/list/${t}`,e)}function f(t,e){return r.delete(`/list/${t}`,{data:e})}function u(t,e,n){return r.put(`/list/${t}?page=${e}`,n)}function p(t){return r.get(`/list/${t}`)}export{a,u as b,o as c,f as d,p as r};
